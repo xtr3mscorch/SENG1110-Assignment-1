@@ -1,7 +1,7 @@
 /**
  * Write a description of class Song here.
  *
- * @author (your name)
+ * @RileyLane
  * @version (a version number or a date)
  */
 public class Song
