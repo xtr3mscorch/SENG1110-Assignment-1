@@ -2,7 +2,7 @@
 /**
  * Write a description of class Album here.
  *
- * @author (your name)
+ * @Riley Lane 
  * @version (a version number or a date)
  */
 public class Album
