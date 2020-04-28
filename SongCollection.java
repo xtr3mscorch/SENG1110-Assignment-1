@@ -1,10 +1,5 @@
 import java.util.*;
-/**
- * Write a description of class Album here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+
 public class SongCollection
 {
 	//private Album album1, album2, album3;
@@ -14,15 +9,17 @@ public class SongCollection
 	public void run()
 	{
 		Scanner console = new Scanner(System.in);
-			
-		System.out.print("Please choose an action \n");
 		
-		System.out.print("1 - View Albums: \n");	
-		System.out.print("2 - Song search: \n");
-		System.out.print("3 - Exit program: \n");
+		// Have main menu as string so we can easily 'return to previous menu'
+		String mainMenu = ("Select a choice from the menu: "
+			+ "1: New album\n"
+			+ "2: View albums\n"
+			+ "3: Song search\n"
+			+ "4: Exit program\n")	
 
-		
+		System.out.print(mainMenu)		
 		action1 = console.nextInt();	
+
         switch (action1)		
 		{
 			case 1:
