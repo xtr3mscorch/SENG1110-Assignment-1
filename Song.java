@@ -4,7 +4,6 @@ Authors: Xavier Williams, Riley Lane
 Version: 28/04/2020
 */
 
- * @version (a version number or a date)
 public class Song
 {
 	private String name,artist,genre;
