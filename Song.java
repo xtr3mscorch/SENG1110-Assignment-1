@@ -1,24 +1,52 @@
-/**
- * Write a description of class Song here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+/* 
+Stores details and features of individual songs
+Authors: Xavier Williams, Riley Lane
+Version: 28/04/2020
+*/
+
 public class Song
 {
-	private String name;
-	private String artist;
+	private String name,artist,genre;
 	private int duration;
-	private String genre;
 	
-	//add comments
-	public void setName(String inputName)
+	// Set and return name of song.
+	public void setName(String n)
 	{
-		 name = inputName;
-	}
+		 name = n;
+	}	
 	public String getName()
 	{
 		return name;
 	}
-	//add other methods
+	
+	// Set and return name of artist.
+	public void setArtist(String a)
+	{
+		arist = a;
+	}
+	public String getArtist()
+	{
+		return arist;
+	}
+
+	// Set and return genre of song.
+	public void setGenre(String g)
+	{
+		genre = g;
+	}
+	public String getGenre()
+	{
+		return genre;
+	}
+
+	// Set and return duration of song.
+	public void setDuraction(int d)
+	{
+		duration = d;
+	}
+	public int getDuration()
+	{
+		return duration;
+	}
+
 }
