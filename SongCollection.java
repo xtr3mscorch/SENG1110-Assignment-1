@@ -53,7 +53,7 @@ public class SongCollection
 				System.out.print("Song entered successfully \n");
 				run();
 			case 6:
-				s.getName();
+				
 			default:
 				System.out.print("Fatal Error... Re booting \n");
 			    run();
