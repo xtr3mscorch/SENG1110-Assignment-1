@@ -1,10 +1,9 @@
+/*
 
-/**
- * Write a description of class Album here.
- *
- * @Riley Lane 
- * @version (a version number or a date)
- */
+Authors: Xavier Williams, Riley Lane
+Version: 28/04/2020
+*/
+
 public class Album
 {
     // instance variables 

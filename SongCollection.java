@@ -1,4 +1,10 @@
 import java.util.*;
+/*
+
+Authors: Xavier Williams, Riley Lane
+Version: 28/04/2020
+*/
+
 
 public class SongCollection
 {
@@ -15,24 +21,27 @@ public class SongCollection
 			+ "1: New album\n"
 			+ "2: View albums\n"
 			+ "3: Song search\n"
-			+ "4: Exit program\n")	
+			+ "4: Exit program\n");
 
-		System.out.print(mainMenu)		
+		System.out.print(mainMenu);
 		action1 = console.nextInt();	
 
         switch (action1)		
 		{
 			case 1:
-			System.out.print("You have no albums!");
-			run();
+				System.out.print("Here we will create an album");
+			    run();
 			case 2:
-			System.out.print("You have no songs!");
-			run();
+				System.out.print("You have no albums!");
+				run();
 			case 3:
-			System.exit(0);
+				System.out.print("You have no songs!");
+				run();
+			case 4:
+				System.exit(0);
 			default:
-			System.out.print("Fatal Error... Re booting \n");
-			run();
+				System.out.print("Fatal Error... Re booting \n");
+			    run();
 		}
 		
 		

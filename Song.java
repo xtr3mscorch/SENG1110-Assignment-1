@@ -22,11 +22,11 @@ public class Song
 	// Set and return name of artist.
 	public void setArtist(String a)
 	{
-		arist = a;
+		artist = a;
 	}
 	public String getArtist()
 	{
-		return arist;
+		return artist;
 	}
 
 	// Set and return genre of song.
@@ -40,7 +40,7 @@ public class Song
 	}
 
 	// Set and return duration of song.
-	public void setDuraction(int d)
+	public void setDuration(int d)
 	{
 		duration = d;
 	}
