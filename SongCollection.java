@@ -9,10 +9,17 @@ Version: 28/04/2020
 public class SongCollection
 {
 	//private Album album1, album2, album3;
-	//private Album album1;
+	private Album album1;
 	Scanner console = new Scanner(System.in);
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
+	public static void main(String[] args) //////////initial function
+	{
+		SongCollection sg = new SongCollection();
+		System.out.print("Welcome to spotify \n");
+		sg.run();
+	}
+
+	/////////////////////////////////////////////////run function
 	public void run()
 	{
 		// Have main menu as string so we can easily 'return to previous menu'
@@ -23,35 +30,42 @@ public class SongCollection
 			+ "4: Exit program\n");
 
 		System.out.print(mainMenu);
-		int action1 = console.nextInt();
-		console.nextLine(); // without this, console will skip any NextLine() input.. weird
-        switch (action1)		
+		String action1 = console.nextLine();
+        switch (Integer.parseInt(action1))
 		{
 			case 1:
 				//Here we will create an album
-				System.out.print("Here we will create an album\n");
+				albumCreate();
 			case 2:
 				//Here we will view all albums
-				System.out.print("Here we will view all album\n");
+				albumView();
 			case 3:
 				//Here we will search songs
-				System.out.print("You have no songs!\n");
+				System.out.print("You have no songs!\n\n");
 				run();
 			case 4:
 				//Here we will exit program
 				System.exit(0);
 			default:
-				System.out.print("Fatal Error... Re booting \n");
+				System.out.print("Fatal Error... Re booting \n\n");
 			    run();
 		}
-		System.out.print("End \n");
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	public static void main(String[] args) 
+
+	void albumCreate()
 	{
-		SongCollection sg = new SongCollection();
-		System.out.print("Welcome to spotify \n");
-		sg.run();
+		System.out.print("What is the name of the album?\n");
+		String name = console.nextLine();
+		album1 = new Album();
+		album1.setAlbumName(name);
+		System.out.print(name + " has been successfully added\n\n");
+		run();
+	}
+	void albumView()
+	{
+		System.out.print("These are your albums: \n");
+		System.out.print(album1.getAlbumName() + "\n\n");
+		run();
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////
 }
