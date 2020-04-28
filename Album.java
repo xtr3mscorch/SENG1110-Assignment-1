@@ -7,7 +7,7 @@ Version: 28/04/2020
 public class Album
 {
     // instance variables 
-    private String name;
+    private String albumName;
     private Song song1, song2, song3, song4;
     private int totalTime;
     private final int MAX_TIME = 720; //12 minutes
@@ -20,15 +20,12 @@ public class Album
         // initialise instance variables
         
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public void setName (String inputName)
+    public void setAlbumName (String newAlbumName)
     {
-        name = inputName;
+        albumName = newAlbumName;
+    }
+    public String getAlbumName()
+    {
+        return(albumName);
     }
 }
