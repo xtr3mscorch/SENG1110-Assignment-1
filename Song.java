@@ -9,6 +9,10 @@ public class Song
 	private String name,artist,genre;
 	private int duration;
 	
+	public Song(){
+		setName("Empty song");
+	}
+
 	// Set and return name of song.
 	public void setName(String n)
 	{
@@ -47,6 +51,25 @@ public class Song
 	public int getDuration()
 	{
 		return duration;
+	}
+
+	public void resetSong(){
+		setName("Empty song");
+}
+	// Copy this for duration search and genre search
+	public boolean songMatches(String newSongName,String newArtist,int newDuration){
+		if(newSongName==name && newArtist==artist && newDuration==duration){
+			return true;
+		} else{
+			return false;
+		}
+	}
+
+	public void create(String newSongName,String newArtist,int newDuration,String newGenre){
+		setName(newSongName);
+		setArtist(newArtist);
+		setDuration(newDuration);
+		setGenre(newGenre);
 	}
 
 }
