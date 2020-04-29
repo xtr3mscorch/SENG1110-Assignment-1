@@ -7,6 +7,7 @@ Version: 29/04/2020
 
 public class SongCollection {
 	private Album album1, album2, album3;
+	private Song song1, song2, song3, song4;
 	Scanner console = new Scanner(System.in);
 
 	public static void main(String[] args)
@@ -17,6 +18,7 @@ public class SongCollection {
 		sg.run();
 	}
 
+	// MAIN MENU //
 	public void run() {
 		String mainMenu = ("____________Main Menu___________\n"
 				+ "1: Add album       "
@@ -33,15 +35,38 @@ public class SongCollection {
 			case 2:
 				albumView();
 			case 3:
-				//Here we will search songs
-				System.out.print("You have no songs!\n\n");
-				run();
+				searchMenu();
 			case 4:
 				System.exit(0);
 			default:
 				rebootFunction();
 		}
 	}
+
+	// SONG SEARCH MENU //
+	void searchMenu() {
+		String mainMenu = ("___________Search By:___________\n"
+				+ "1: Genre       "
+				+ " 3: View all\n"
+				+ "2: Duration     "
+				+ "4: Exit program\n");
+		System.out.print(mainMenu);
+
+		String input = console.nextLine();
+		switch (Integer.parseInt(input)) {
+			case 1:
+				// Genre search feature
+			case 2:
+				// Song length feature
+			case 3:
+				viewAllSong();
+			case 4:
+				System.exit(0);
+			default:
+				rebootFunction();
+		}
+	}
+
 	////////////////////////User Input Functions/////////////////////////////////////////////
 
 	////create album ... renames empty slots to user input (gets send to "rename album" function)
@@ -89,9 +114,22 @@ public class SongCollection {
 				run();
 			default:
 				rebootFunction();
+			}
 		}
 
+	// Method to view all songs (WORK IN PROG)
+	void viewAllSong() {
+		System.out.print("_________Songs_________\n");
+		System.out.print("1: " + song1.getName() + "\n");
+		System.out.print("2: " + song2.getName() + "\n");
+		System.out.print("3: " + song3.getName() + "\n");
+		System.out.print("3: " + song4.getName() + "\n");
+		System.out.print("----------------\n4: Back\n");
 	}
+
+
+
+
 
 	///////////////Secondary Functions (these get called from a user input function)//////////////////////
 
@@ -119,13 +157,14 @@ public class SongCollection {
 		}
 	}
 
+
 	/////////////////////////Background Functions//////////////////////////////////
 	void rebootFunction()
 	{
 		System.out.print("Fatal Error... rebooting \n\n");
 		run();
 	}
-	/////This is called on program start... assigns each name to empty slot
+	// Assign name to empty album slots.
 	void initialiseAlbums() {
 		album1 = new Album();
 		album2 = new Album();
@@ -133,5 +172,17 @@ public class SongCollection {
 		album1.setAlbumName("Empty Slot");
 		album2.setAlbumName("Empty Slot");
 		album3.setAlbumName("Empty Slot");
+	}
+
+	// Assign name to empty song slots.
+	void initialiseSongs() {
+		song1 = new Song();
+		song2 = new Song();
+		song3 = new Song();
+		song4 = new Song();
+		song1.setName("Empty Song");
+		song2.setName("Empty Song");
+		song3.setName("Empty Song");
+		song4.setName("Empty Song");
 	}
 }
