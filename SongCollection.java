@@ -10,8 +10,7 @@ public class SongCollection {
 	private Song song1, song2, song3, song4;
 	Scanner console = new Scanner(System.in);
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		SongCollection sg = new SongCollection();
 		sg.initialiseAlbums();
 		System.out.print("Welcome to spotify \n");
@@ -37,7 +36,7 @@ public class SongCollection {
 			case 3:
 				searchMenu();
 			case 4:
-				System.exit(0);
+				//exit ()
 			default:
 				rebootFunction();
 		}
@@ -64,6 +63,24 @@ public class SongCollection {
 				System.exit(0);
 			default:
 				rebootFunction();
+		}
+	}
+
+	void albumMenu(Album currentAlbum) {
+		System.out.println("Menu");
+		System.out.println("1: List songs");
+		System.out.println("2: Add song");
+		System.out.println("3: Delete song");
+		System.out.println("4: Back/exit thing");
+
+		String input = console.nextLine();
+		switch (Integer.parseInt(input)) {
+			case 1:
+				currentAlbum.listSongs();
+				break;
+			case 2:
+				currentAlbum.createSong();
+				break;
 		}
 	}
 
@@ -95,53 +112,39 @@ public class SongCollection {
 
 	//view album function.. work in progress / testing
 	void albumView() {
-		System.out.print("_________Albums_________\n");
+		System.out.print("_________Albums: select one_________\n");
 		System.out.print("1: " + album1.getAlbumName() + "\n");
 		System.out.print("2: " + album2.getAlbumName() + "\n");
 		System.out.print("3: " + album3.getAlbumName() + "\n");
 		System.out.print("----------------\n4: Back\n");
 
 		//USER INPUT//
+		//**Add check if album exists feature**
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
 			case 1:
-				//views songs? another menu of album options?
+				albumMenu(album1);
 			case 2:
-				//views songs? another menu of album options?
+				//albumMenu();
 			case 3:
-				//views songs? another menu of album options?
+				//albumMenu();
 			case 4:
 				run();
 			default:
 				rebootFunction();
-			}
 		}
-
-	// Method to view all songs (WORK IN PROG)
-	void viewAllSong() {
-		System.out.print("_________Songs_________\n");
-		System.out.print("1: " + song1.getName() + "\n");
-		System.out.print("2: " + song2.getName() + "\n");
-		System.out.print("3: " + song3.getName() + "\n");
-		System.out.print("3: " + song4.getName() + "\n");
-		System.out.print("----------------\n4: Back\n");
 	}
-
-
-
-
 
 	///////////////Secondary Functions (these get called from a user input function)//////////////////////
 
-	void renameAlbum(int selection)
-	{
+	void renameAlbum(int selection) {
 		System.out.print("What is the name of the album?\n");
-		switch (selection)
-		{
+		switch (selection) {
 			case 1:
 				album1.setAlbumName(console.nextLine());
 				System.out.print(album1.getAlbumName() + " has been successfully added to slot 1\n\n");
 				run();
+				break;
 			case 2:
 				album2.setAlbumName(console.nextLine());
 				System.out.print(album2.getAlbumName() + " has been successfully added to slot 2\n\n");
@@ -157,32 +160,27 @@ public class SongCollection {
 		}
 	}
 
+    // Method to view all songs, calls listing method from Album.java
+    void viewAllSong() {
+        album1.listSongs();
+        album2.listSongs();
+        album3.listSongs();
+    }
+
 
 	/////////////////////////Background Functions//////////////////////////////////
-	void rebootFunction()
-	{
+	void rebootFunction() {
 		System.out.print("Fatal Error... rebooting \n\n");
 		run();
 	}
-	// Assign name to empty album slots.
+
+	// Initialise new albums
 	void initialiseAlbums() {
 		album1 = new Album();
 		album2 = new Album();
 		album3 = new Album();
-		album1.setAlbumName("Empty Slot");
-		album2.setAlbumName("Empty Slot");
-		album3.setAlbumName("Empty Slot");
-	}
-
-	// Assign name to empty song slots.
-	void initialiseSongs() {
-		song1 = new Song();
-		song2 = new Song();
-		song3 = new Song();
-		song4 = new Song();
-		song1.setName("Empty Song");
-		song2.setName("Empty Song");
-		song3.setName("Empty Song");
-		song4.setName("Empty Song");
 	}
 }
+
+
+
