@@ -2,71 +2,136 @@ import java.util.*;
 /*
 
 Authors: Xavier Williams, Riley Lane
-Version: 28/04/2020
+Version: 29/04/2020
 */
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-public class SongCollection
-{
-	//private Album album1, album2, album3;
-	private Album album1;
+public class SongCollection {
+	private Album album1, album2, album3;
 	Scanner console = new Scanner(System.in);
 
-	public static void main(String[] args) //////////initial function
+	public static void main(String[] args)
 	{
 		SongCollection sg = new SongCollection();
+		sg.initialiseAlbums();
 		System.out.print("Welcome to spotify \n");
 		sg.run();
 	}
 
-	/////////////////////////////////////////////////run function
-	public void run()
-	{
-		// Have main menu as string so we can easily 'return to previous menu'
-		String mainMenu = ("Select a choice from the menu: \n"
-			+ "1: New album\n"
-			+ "2: View albums\n"
-			+ "3: Song search\n"
-			+ "4: Exit program\n");
-
+	public void run() {
+		String mainMenu = ("____________Main Menu___________\n"
+				+ "1: Add album       "
+				+ "3: Song search\n"
+				+ "2: View albums     "
+				+ "4: Exit program\n");
 		System.out.print(mainMenu);
-		String action1 = console.nextLine();
-        switch (Integer.parseInt(action1))
-		{
+
+		///USER INPUT///
+		String input = console.nextLine();
+		switch (Integer.parseInt(input)) {
 			case 1:
-				//Here we will create an album
 				albumCreate();
 			case 2:
-				//Here we will view all albums
 				albumView();
 			case 3:
 				//Here we will search songs
 				System.out.print("You have no songs!\n\n");
 				run();
 			case 4:
-				//Here we will exit program
 				System.exit(0);
 			default:
-				System.out.print("Fatal Error... Re booting \n\n");
-			    run();
+				rebootFunction();
+		}
+	}
+	////////////////////////User Input Functions/////////////////////////////////////////////
+
+	////create album ... renames empty slots to user input (gets send to "rename album" function)
+	void albumCreate() {
+		System.out.print("Which album slot would you like to overwrite?\n");
+		System.out.print("1: " + album1.getAlbumName() + "\n");
+		System.out.print("2: " + album2.getAlbumName() + "\n");
+		System.out.print("3: " + album3.getAlbumName() + "\n");
+		System.out.print("----------------\n4: Back\n");
+
+		//USER INPUT//
+		String input = console.nextLine();
+		switch (Integer.parseInt(input)) {
+			case 1:
+				renameAlbum(1);
+			case 2:
+				renameAlbum(2);
+			case 3:
+				renameAlbum(3);
+			case 4:
+				run();
+			default:
+				rebootFunction();
 		}
 	}
 
-	void albumCreate()
+	//view album function.. work in progress / testing
+	void albumView() {
+		System.out.print("_________Albums_________\n");
+		System.out.print("1: " + album1.getAlbumName() + "\n");
+		System.out.print("2: " + album2.getAlbumName() + "\n");
+		System.out.print("3: " + album3.getAlbumName() + "\n");
+		System.out.print("----------------\n4: Back\n");
+
+		//USER INPUT//
+		String input = console.nextLine();
+		switch (Integer.parseInt(input)) {
+			case 1:
+				//views songs? another menu of album options?
+			case 2:
+				//views songs? another menu of album options?
+			case 3:
+				//views songs? another menu of album options?
+			case 4:
+				run();
+			default:
+				rebootFunction();
+		}
+
+	}
+
+	///////////////Secondary Functions (these get called from a user input function)//////////////////////
+
+	void renameAlbum(int selection)
 	{
 		System.out.print("What is the name of the album?\n");
-		String name = console.nextLine();
-		album1 = new Album();
-		album1.setAlbumName(name);
-		System.out.print(name + " has been successfully added\n\n");
-		run();
+		switch (selection)
+		{
+			case 1:
+				album1.setAlbumName(console.nextLine());
+				System.out.print(album1.getAlbumName() + " has been successfully added to slot 1\n\n");
+				run();
+			case 2:
+				album2.setAlbumName(console.nextLine());
+				System.out.print(album2.getAlbumName() + " has been successfully added to slot 2\n\n");
+				run();
+			case 3:
+				album3.setAlbumName(console.nextLine());
+				System.out.print(album3.getAlbumName() + " has been successfully added to slot 3\n\n");
+				run();
+			case 4:
+				run();
+			default:
+				rebootFunction();
+		}
 	}
-	void albumView()
-	{
-		System.out.print("These are your albums: \n");
-		System.out.print(album1.getAlbumName() + "\n\n");
-		run();
-	}
-	//////////////////////////////////////////////////////////////////////////////////////////////
-}
 
+	/////////////////////////Background Functions//////////////////////////////////
+	void rebootFunction()
+	{
+		System.out.print("Fatal Error... rebooting \n\n");
+		run();
+	}
+	/////This is called on program start... assigns each name to empty slot
+	void initialiseAlbums() {
+		album1 = new Album();
+		album2 = new Album();
+		album3 = new Album();
+		album1.setAlbumName("Empty Slot");
+		album2.setAlbumName("Empty Slot");
+		album3.setAlbumName("Empty Slot");
+	}
+}
