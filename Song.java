@@ -1,7 +1,7 @@
 /* 
 Stores details and features of individual songs
 Authors: Xavier Williams, Riley Lane
-Version: 28/04/2020
+Version: 30/04/2020
 */
 
 public class Song

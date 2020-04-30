@@ -2,7 +2,7 @@ import java.util.*;
 /*
 
 Authors: Xavier Williams, Riley Lane
-Version: 29/04/2020
+Version: 30/04/2020
 */
 
 public class SongCollection {
@@ -17,7 +17,8 @@ public class SongCollection {
 		sg.run();
 	}
 
-	// MAIN MENU //
+	//###########################################################################//
+	//////////////////////////////Main Menu////////////////////////////////////////
 	public void run() {
 		String mainMenu = ("____________Main Menu___________\n"
 				+ "1: Add album       "
@@ -47,6 +48,10 @@ public class SongCollection {
 		}
 	}
 
+	//###########################################################################//
+	//////////////////////User Input Functions/////////////////////////////////////
+
+	//#############################################//
 	// SONG SEARCH MENU //
 	void searchMenu() {
 		String mainMenu = ("___________Search By:___________\n"
@@ -56,6 +61,7 @@ public class SongCollection {
 				+ "4: Exit program\n");
 		System.out.print(mainMenu);
 
+		//USER INPUT//
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
 			case 1:
@@ -76,44 +82,56 @@ public class SongCollection {
 		}
 	}
 
+	//#############################################//
+	// ALBUM SONG VIEW // SECONDARY LAYER FOR ALBUM VIEW
 	void albumMenu(Album currentAlbum) {
-		System.out.println("Menu");
+		System.out.println("______Album: " + currentAlbum.getAlbumName() + "_______");
 		System.out.println("1: List songs");
 		System.out.println("2: Add song");
 		System.out.println("3: Delete song");
-		System.out.println("4: Back/exit thing");
+		System.out.println("----------------" + "\n4: Back");
 
+		//USER INPUT//
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
 			case 1:
 				currentAlbum.listSongs();
+				albumMenu(currentAlbum);
 				break;
 			case 2:
 				currentAlbum.createSong();
+				albumMenu(currentAlbum);
+				break;
+			case 3:
+				//delete song function
+				run();
+				break;
+			case 4:
+				//go back
+				albumView();
+				break;
+			default:
+				rebootFunction();
 				break;
 		}
 	}
 
-	////////////////////////User Input Functions/////////////////////////////////////////////
-
-	////create album ... renames empty slots to user input
+	//#############################################//
+	// ALBUM CREATE MENU //
 	void albumCreate() {
-		System.out.println("Album name: ");
-		String newAlbumName = console.nextLine();
+		if(albumCount<3) {
+			System.out.println("Album name: ");
 
-		if (albumCount<3)
-		{
-			if(album1.albumNameMatches(newAlbumName) || album2.albumNameMatches(newAlbumName) || album3.albumNameMatches(newAlbumName))
-			{
-				System.out.println("Album already exists. ");
-			}
-			else{
+			//USER INPUT//
+			String newAlbumName = console.nextLine();
+			if (album1.albumNameMatches(newAlbumName) || album2.albumNameMatches(newAlbumName) || album3.albumNameMatches(newAlbumName)) {
+				System.out.println("Album already exists. "); //check if name already exists
+			} else {
 				albumCount += 1;
-				switch(albumCount)
-				{
+				switch (albumCount) {
 					case 1:
-					album1.setAlbumName(newAlbumName);
-					    break;
+						album1.setAlbumName(newAlbumName);
+						break;
 					case 2:
 						album2.setAlbumName(newAlbumName);
 						break;
@@ -122,92 +140,80 @@ public class SongCollection {
 						break;
 				}
 			}
-
 			System.out.println(newAlbumName + " has been successfully added");
 			run();
 		}
-		//OBSOLETE
-		/*
-		System.out.print("Which album slot would you like to overwrite?\n");
-		System.out.print("1: " + album1.getAlbumName() + "\n");
-		System.out.print("2: " + album2.getAlbumName() + "\n");
-		System.out.print("3: " + album3.getAlbumName() + "\n");
-		System.out.print("----------------\n4: Back\n");
-
-		//USER INPUT//
-		String input = console.nextLine();
-		switch (Integer.parseInt(input)) {
-			case 1:
-				renameAlbum(1);
-			case 2:
-				renameAlbum(2);
-			case 3:
-				renameAlbum(3);
-			case 4:
-				run();
-			default:
-				rebootFunction();
-		}*/
-
+		else{
+			System.out.println("album slots are full.");
+			run();
+		}
 	}
 
-	//view album function.. work in progress / testing
+	//#############################################//
+	// ALBUM VIEW MENU //
 	void albumView() {
-		System.out.print("_________Albums: select one_________\n");
-		System.out.print("1: " + album1.getAlbumName() + "\n");
-		System.out.print("2: " + album2.getAlbumName() + "\n");
-		System.out.print("3: " + album3.getAlbumName() + "\n");
-		System.out.print("----------------\n4: Back\n");
+		if(albumCount > 0) {
+			System.out.println("_________Albums: select one_________");
+			switch (albumCount) { //only display album based on albumCount value
+				case 1:
+					System.out.println("1: " + album1.getAlbumName());
+					break;
+				case 2:
+					System.out.println("1: " + album1.getAlbumName());
+					System.out.println("2: " + album2.getAlbumName());
+					break;
+				case 3:
+					System.out.println("1: " + album1.getAlbumName());
+					System.out.println("2: " + album2.getAlbumName());
+					System.out.println("3: " + album3.getAlbumName());
+					break;
+				default:
+					rebootFunction();
+					break;
+			}
 
-		//USER INPUT//
-		//**Add check if album exists feature**
-		String input = console.nextLine();
-		switch (Integer.parseInt(input)) {
-			case 1:
-				albumMenu(album1);
-				break;
-			case 2:
-				albumMenu(album2);
-				break;
-			case 3:
-				albumMenu(album3);
-				break;
-			case 4:
-				run();
-				break;
-			default:
-				rebootFunction();
+			System.out.print("----------------\n4: Back\n");
+
+			//USER INPUT//
+			String input = console.nextLine();
+			switch (Integer.parseInt(input)) {
+				case 1:
+					albumMenu(album1);
+					break;
+				case 2:
+					if (albumCount > 1)
+					{
+						albumMenu(album2);
+					}else {
+						rebootFunction();
+					}
+					break;
+				case 3:
+					if (albumCount > 2)
+					{
+						albumMenu(album3);
+					}
+					else{
+						rebootFunction();
+					}
+					break;
+				case 4:
+					run();
+					break;
+				default:
+					rebootFunction();
+			}
+		}
+		else{
+			System.out.print("You have not added any albums!\n");
+			run();
 		}
 	}
 
-	///////////////Secondary Functions (these get called from a user input function)//////////////////////
+	//###########################################################################//
+	//////////////////////Secondary Functions//////////////////////////////////////
 
-	void renameAlbum(int selection) {
-		System.out.print("What is the name of the album?\n");
-		switch (selection) {
-			case 1:
-				album1.setAlbumName(console.nextLine());
-				System.out.print(album1.getAlbumName() + " has been successfully added to slot 1\n\n");
-				run();
-				break;
-			case 2:
-				album2.setAlbumName(console.nextLine());
-				System.out.print(album2.getAlbumName() + " has been successfully added to slot 2\n\n");
-				run();
-				break;
-			case 3:
-				album3.setAlbumName(console.nextLine());
-				System.out.print(album3.getAlbumName() + " has been successfully added to slot 3\n\n");
-				run();
-				break;
-			case 4:
-				run();
-				break;
-			default:
-				rebootFunction();
-				break;
-		}
-	}
+	//These contain no user input
 
     // Method to view all songs, calls listing method from Album.java
     void viewAllSong() {
@@ -216,10 +222,9 @@ public class SongCollection {
         album3.listSongs();
     }
 
-
-	/////////////////////////Background Functions//////////////////////////////////
+    //back to main menu with error message.. usually called when invalid input
 	void rebootFunction() {
-		System.out.print("Fatal Error... rebooting \n\n");
+		System.out.println("Fatal Error... rebooting6\n");
 		run();
 	}
 
@@ -230,6 +235,7 @@ public class SongCollection {
 		album2 = new Album();
 		album3 = new Album();
 	}
+	//###########################################################################//
 }
 
 
