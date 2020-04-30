@@ -112,4 +112,31 @@ public class Album
             System.out.println("Failed to create song, album is full. Please delete a song.");
         }
     }
+
+    public boolean albumNameMatches(String newAlbumName)
+    {
+        if(newAlbumName == albumName)
+        {
+            return true;
+        }
+        else
+            {
+               return false;
+            }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

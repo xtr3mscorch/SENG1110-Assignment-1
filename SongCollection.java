@@ -7,8 +7,8 @@ Version: 29/04/2020
 
 public class SongCollection {
 	private Album album1, album2, album3;
-	private Song song1, song2, song3, song4;
 	Scanner console = new Scanner(System.in);
+	int albumCount;
 
 	public static void main(String[] args) {
 		SongCollection sg = new SongCollection();
@@ -31,14 +31,19 @@ public class SongCollection {
 		switch (Integer.parseInt(input)) {
 			case 1:
 				albumCreate();
+				break;
 			case 2:
 				albumView();
+				break;
 			case 3:
 				searchMenu();
+				break;
 			case 4:
-				//exit ()
+				System.exit(0);
+				break;
 			default:
 				rebootFunction();
+				break;
 		}
 	}
 
@@ -55,14 +60,19 @@ public class SongCollection {
 		switch (Integer.parseInt(input)) {
 			case 1:
 				// Genre search feature
+				break;
 			case 2:
 				// Song length feature
+				break;
 			case 3:
 				viewAllSong();
+				break;
 			case 4:
 				System.exit(0);
+				break;
 			default:
 				rebootFunction();
+				break;
 		}
 	}
 
@@ -86,8 +96,38 @@ public class SongCollection {
 
 	////////////////////////User Input Functions/////////////////////////////////////////////
 
-	////create album ... renames empty slots to user input (gets send to "rename album" function)
+	////create album ... renames empty slots to user input
 	void albumCreate() {
+		System.out.println("Album name: ");
+		String newAlbumName = console.nextLine();
+
+		if (albumCount<3)
+		{
+			if(album1.albumNameMatches(newAlbumName) || album2.albumNameMatches(newAlbumName) || album3.albumNameMatches(newAlbumName))
+			{
+				System.out.println("Album already exists. ");
+			}
+			else{
+				albumCount += 1;
+				switch(albumCount)
+				{
+					case 1:
+					album1.setAlbumName(newAlbumName);
+					    break;
+					case 2:
+						album2.setAlbumName(newAlbumName);
+						break;
+					case 3:
+						album3.setAlbumName(newAlbumName);
+						break;
+				}
+			}
+
+			System.out.println(newAlbumName + " has been successfully added");
+			run();
+		}
+		//OBSOLETE
+		/*
 		System.out.print("Which album slot would you like to overwrite?\n");
 		System.out.print("1: " + album1.getAlbumName() + "\n");
 		System.out.print("2: " + album2.getAlbumName() + "\n");
@@ -107,7 +147,8 @@ public class SongCollection {
 				run();
 			default:
 				rebootFunction();
-		}
+		}*/
+
 	}
 
 	//view album function.. work in progress / testing
@@ -124,12 +165,16 @@ public class SongCollection {
 		switch (Integer.parseInt(input)) {
 			case 1:
 				albumMenu(album1);
+				break;
 			case 2:
-				//albumMenu();
+				albumMenu(album2);
+				break;
 			case 3:
-				//albumMenu();
+				albumMenu(album3);
+				break;
 			case 4:
 				run();
+				break;
 			default:
 				rebootFunction();
 		}
@@ -149,14 +194,18 @@ public class SongCollection {
 				album2.setAlbumName(console.nextLine());
 				System.out.print(album2.getAlbumName() + " has been successfully added to slot 2\n\n");
 				run();
+				break;
 			case 3:
 				album3.setAlbumName(console.nextLine());
 				System.out.print(album3.getAlbumName() + " has been successfully added to slot 3\n\n");
 				run();
+				break;
 			case 4:
 				run();
+				break;
 			default:
 				rebootFunction();
+				break;
 		}
 	}
 
@@ -176,6 +225,7 @@ public class SongCollection {
 
 	// Initialise new albums
 	void initialiseAlbums() {
+		albumCount = 0;
 		album1 = new Album();
 		album2 = new Album();
 		album3 = new Album();
