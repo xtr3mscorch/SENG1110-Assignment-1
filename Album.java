@@ -8,7 +8,7 @@ public class Album
 {
     // Instance variables
     private String albumName,defaultName="Empty Slot";
-    private Song song1, song2, song3, song4;
+    public Song song1, song2, song3, song4;
     private int totalTime,songCount;
     private final int MAX_TIME = 720; //12 minutes
     Scanner console = new Scanner(System.in);
@@ -47,6 +47,15 @@ public class Album
         System.out.println("- " +song2.getName());
         System.out.println("- " +song3.getName());
         System.out.println("- " +song4.getName());
+    }
+
+    //new code for deleting album and copying songs
+    public int getSongCount(){
+        return (songCount);
+    }
+
+    public void setSongCount(int newSongCount){
+        songCount = newSongCount;
     }
 
     // Reset album name and calls resetSong method from Song.java

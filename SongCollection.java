@@ -238,25 +238,46 @@ public class SongCollection {
 
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
-			case 1:
-				//delete album 1
 
-				//if album count == 2
-				    //album 2 data -> album 1
-				//if album count == 3
-				    //album 3 data -> album 1
+			// DELETE ALBUM 1
+			case 1:
+				if(albumCount == 2) {//IF THERE ARE 2 ALBUMS
+					//album 2 takes the spot of album 1 -> then gets deleted
+					albumSwitchData(album2, album1);
+					deleteAlbum(album2);
+				}
+				else if(albumCount == 3) //IF THERE IS 3 ALBUMS
+				{
+					//album 3 takes the spot of album 1 -> then gets deleted
+					albumSwitchData(album3, album1);
+					deleteAlbum(album3);
+				}
+				else{
+					deleteAlbum(album1); //IF THERE IS ONLY 1 ALBUM
+				}
 				break;
+
+			// DELETE ALBUM 2
 			case 2:
 				if (albumCount > 1)
 				{
-					//delete album 2
-					// if album count == 3
-					    //move album 3 data -> album 2
+					//IF THERE ARE 3 ALBUMS
+					if (albumCount == 3)
+					{
+						//album 3 takes the spot of album 2 -> then gets deleted
+						albumSwitchData(album3, album2);
+						deleteAlbum(album3);
+					}
+					else{
+						deleteAlbum(album2);
+					}
 				}
 				else{
 					rebootFunction();
 				}
 				break;
+
+				// DELETE ALBUM 3
 			case 3:
 				if (albumCount > 2){
 					deleteAlbum(album3);
@@ -265,6 +286,8 @@ public class SongCollection {
 					rebootFunction();
 				}
 				break;
+
+				// GO BACK
 			case 4:
 				albumView();
 				break;
@@ -307,6 +330,79 @@ public class SongCollection {
 		albumCount -= 1;
 		System.out.println(tempName + " has been successfully deleted");
 		albumView();
+	}
+
+	//big data switch.. fuck
+	void albumSwitchData(Album albumFrom, Album albumTo){
+		albumTo.resetAlbum(); //clear album that is receiving data
+		albumTo.setAlbumName(albumFrom.getAlbumName()); //set new name from old album name
+		int newSongCount = albumFrom.getSongCount(); //check the song count from old album
+		albumTo.setSongCount(newSongCount); //set the new song count
+		switch (newSongCount)
+		{
+			case 1:
+				//if 1 song
+				albumTo.song1.setName(albumFrom.song1.getName());
+				albumTo.song1.setArtist(albumFrom.song1.getArtist());
+				albumTo.song1.setDuration(albumFrom.song1.getDuration());
+				albumTo.song1.setGenre(albumFrom.song1.getGenre());
+			case 2:
+				//if 2 songs
+				albumTo.song1.setName(albumFrom.song1.getName());
+				albumTo.song1.setArtist(albumFrom.song1.getArtist());
+				albumTo.song1.setDuration(albumFrom.song1.getDuration());
+				albumTo.song1.setGenre(albumFrom.song1.getGenre());
+
+				albumTo.song2.setName(albumFrom.song2.getName());
+				albumTo.song2.setArtist(albumFrom.song2.getArtist());
+				albumTo.song2.setDuration(albumFrom.song2.getDuration());
+				albumTo.song2.setGenre(albumFrom.song2.getGenre());
+				break;
+			case 3:
+				//if 3 songs
+				albumTo.song1.setName(albumFrom.song1.getName());
+				albumTo.song1.setArtist(albumFrom.song1.getArtist());
+				albumTo.song1.setDuration(albumFrom.song1.getDuration());
+				albumTo.song1.setGenre(albumFrom.song1.getGenre());
+
+				albumTo.song2.setName(albumFrom.song2.getName());
+				albumTo.song2.setArtist(albumFrom.song2.getArtist());
+				albumTo.song2.setDuration(albumFrom.song2.getDuration());
+				albumTo.song2.setGenre(albumFrom.song2.getGenre());
+
+				albumTo.song3.setName(albumFrom.song3.getName());
+				albumTo.song3.setArtist(albumFrom.song3.getArtist());
+				albumTo.song3.setDuration(albumFrom.song3.getDuration());
+				albumTo.song3.setGenre(albumFrom.song3.getGenre());
+				break;
+			case 4:
+				//if 4 songs
+				albumTo.song1.setName(albumFrom.song1.getName());
+				albumTo.song1.setArtist(albumFrom.song1.getArtist());
+				albumTo.song1.setDuration(albumFrom.song1.getDuration());
+				albumTo.song1.setGenre(albumFrom.song1.getGenre());
+
+				albumTo.song2.setName(albumFrom.song2.getName());
+				albumTo.song2.setArtist(albumFrom.song2.getArtist());
+				albumTo.song2.setDuration(albumFrom.song2.getDuration());
+				albumTo.song2.setGenre(albumFrom.song2.getGenre());
+
+				albumTo.song3.setName(albumFrom.song3.getName());
+				albumTo.song3.setArtist(albumFrom.song3.getArtist());
+				albumTo.song3.setDuration(albumFrom.song3.getDuration());
+				albumTo.song3.setGenre(albumFrom.song3.getGenre());
+
+				albumTo.song4.setName(albumFrom.song4.getName());
+				albumTo.song4.setArtist(albumFrom.song4.getArtist());
+				albumTo.song4.setDuration(albumFrom.song4.getDuration());
+				albumTo.song4.setGenre(albumFrom.song4.getGenre());
+				break;
+			default:
+				//no songs.. do nothing?
+				run();
+				break;
+		}
+
 	}
 	//###########################################################################//
 }
