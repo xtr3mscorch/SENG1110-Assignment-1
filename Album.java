@@ -51,7 +51,7 @@ public class Album
 
     // Reset album name and calls resetSong method from Song.java
     // **Will be used to for 'Delete album'**
-    void resetAlbum(){
+    public void resetAlbum(){
         setAlbumName(defaultName);
         song1.resetSong();
         song2.resetSong();

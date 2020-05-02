@@ -172,7 +172,7 @@ public class SongCollection {
 					break;
 			}
 
-			System.out.print("----------------\n4: Back\n");
+			System.out.print("----------------\n4: Delete an album     5: Back\n");
 
 			//USER INPUT//
 			String input = console.nextLine();
@@ -198,6 +198,9 @@ public class SongCollection {
 					}
 					break;
 				case 4:
+					DeleteAlbum();
+					break;
+				case 5:
 					run();
 					break;
 				default:
@@ -208,6 +211,68 @@ public class SongCollection {
 			System.out.print("You have not added any albums!\n");
 			run();
 		}
+	}
+
+	//#############################################//
+	// ALBUM DELETE //
+	void DeleteAlbum(){
+		System.out.println("Which album would you like to delete?");
+		switch (albumCount) { //only display album based on albumCount value
+			case 1:
+				System.out.println("1: " + album1.getAlbumName());
+				break;
+			case 2:
+				System.out.println("1: " + album1.getAlbumName());
+				System.out.println("2: " + album2.getAlbumName());
+				break;
+			case 3:
+				System.out.println("1: " + album1.getAlbumName());
+				System.out.println("2: " + album2.getAlbumName());
+				System.out.println("3: " + album3.getAlbumName());
+				break;
+			default:
+				rebootFunction();
+				break;
+		}
+		System.out.println("----------------\n4: Back");
+
+		String input = console.nextLine();
+		switch (Integer.parseInt(input)) {
+			case 1:
+				//delete album 1
+
+				//if album count == 2
+				    //album 2 data -> album 1
+				//if album count == 3
+				    //album 3 data -> album 1
+				break;
+			case 2:
+				if (albumCount > 1)
+				{
+					//delete album 2
+					// if album count == 3
+					    //move album 3 data -> album 2
+				}
+				else{
+					rebootFunction();
+				}
+				break;
+			case 3:
+				if (albumCount > 2){
+					deleteAlbum(album3);
+				}
+				else{
+					rebootFunction();
+				}
+				break;
+			case 4:
+				albumView();
+				break;
+			default:
+				rebootFunction();
+				break;
+		}
+
 	}
 
 	//###########################################################################//
@@ -224,7 +289,7 @@ public class SongCollection {
 
     //back to main menu with error message.. usually called when invalid input
 	void rebootFunction() {
-		System.out.println("Fatal Error... rebooting6\n");
+		System.out.println("Fatal Error... rebooting\n");
 		run();
 	}
 
@@ -234,6 +299,14 @@ public class SongCollection {
 		album1 = new Album();
 		album2 = new Album();
 		album3 = new Album();
+	}
+
+	void deleteAlbum(Album selectedAlbum){
+		String tempName = selectedAlbum.getAlbumName();
+		selectedAlbum.resetAlbum();
+		albumCount -= 1;
+		System.out.println(tempName + " has been successfully deleted");
+		albumView();
 	}
 	//###########################################################################//
 }
