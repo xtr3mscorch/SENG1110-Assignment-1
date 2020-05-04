@@ -99,7 +99,8 @@ public class SongCollection {
 				albumMenu(currentAlbum);
 				break;
 			case 2:
-				currentAlbum.createSong();
+				//currentAlbum.createSong();
+				createNewSong(currentAlbum);
 				albumMenu(currentAlbum);
 				break;
 			case 3:
@@ -293,6 +294,62 @@ public class SongCollection {
 				break;
 		}
 
+	}
+
+	//#############################################//
+	// NEW CREATE SONG ... Within SongCollection.java //
+	void createNewSong(Album selectedAlbum){
+		String newSongName;String newArtist;String newDuration;String newGenre;int duration;
+		System.out.println("Name: ");
+		newSongName = console.nextLine();
+		System.out.println("Artist: ");
+		newArtist = console.nextLine();
+		System.out.println("Duration: ");
+		newDuration = console.nextLine();
+		// **NEED TO MAKE NEW MENU FOR GENRE WHERE THEY SELECT FROM A LIST**
+		System.out.println("Genre: ");
+		newGenre = console.nextLine();
+
+		duration = Integer.parseInt(newDuration);
+
+		if(selectedAlbum.getSongCount() < 4)
+		{
+			if(selectedAlbum.getTotalTime()+duration<selectedAlbum.getMaxTime())
+			{
+				if(selectedAlbum.song1.songMatches(newSongName,newArtist,duration) || selectedAlbum.song2.songMatches(newSongName,newArtist,duration) ||
+						selectedAlbum.song3.songMatches(newSongName,newArtist,duration) || selectedAlbum.song4.songMatches(newSongName,newArtist,duration)){
+					System.out.println("Song already exists.");
+				}
+				else{
+					selectedAlbum.setSongCount(selectedAlbum.getSongCount() + 1);
+					switch (selectedAlbum.getSongCount())
+					{
+						case 1:
+							selectedAlbum.song1.create(newSongName,newArtist,duration,newGenre);
+							break;
+						case 2:
+							selectedAlbum.song2.create(newSongName,newArtist,duration,newGenre);
+							break;
+						case 3:
+							selectedAlbum.song3.create(newSongName,newArtist,duration,newGenre);
+							break;
+						case 4:
+							selectedAlbum.song4.create(newSongName,newArtist,duration,newGenre);
+							break;
+					}
+					selectedAlbum.setTotalTime(selectedAlbum.getTotalTime() + duration);
+
+					// **FIX OUTPUT TO SHOW SONG NAME ADDED TO x ALBUM ETC.**
+					System.out.println("Created song!!!!!!");
+				}
+			}
+			else{
+				System.out.println("Failed to create song, duration of album exceeds limit.");
+			}
+
+		}else{
+			System.out.println("Failed to create song, album is full. Please delete a song.");
+		}
 	}
 
 	//###########################################################################//

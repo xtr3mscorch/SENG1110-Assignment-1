@@ -31,6 +31,27 @@ public class Album
         return(albumName);
     }
 
+    //new code for deleting album and copying songs
+    public int getSongCount(){
+        return (songCount);
+    }
+    public void setSongCount(int newSongCount){
+        songCount = newSongCount;
+    }
+
+    public int getTotalTime()
+    {
+        return (totalTime);
+    }
+    public void setTotalTime(int newTotalTime){
+        totalTime = newTotalTime;
+    }
+    public int getMaxTime(){
+        return (MAX_TIME);
+    }
+
+
+
     // Initialise Songs
     private void initialiseSongs() {
         song1 = new Song();
@@ -49,14 +70,7 @@ public class Album
         System.out.println("- " +song4.getName());
     }
 
-    //new code for deleting album and copying songs
-    public int getSongCount(){
-        return (songCount);
-    }
 
-    public void setSongCount(int newSongCount){
-        songCount = newSongCount;
-    }
 
     // Reset album name and calls resetSong method from Song.java
     // **Will be used to for 'Delete album'**
@@ -69,7 +83,10 @@ public class Album
         songCount = 0;
     }
 
+
+
     void createSong(){
+        /*
         // Prompt users for input values
         String newSongName;String newArtist;String newDuration;String newGenre;int duration;
         System.out.println("Name: ");
@@ -87,8 +104,9 @@ public class Album
 
         /* CHECKING SYSTEM: Checks if enough space in album, checks duration, calls songMatches method from Song.java to
         check if song already exists in album */
+        /*
         if(songCount<4){
-            System.out.println(songCount);
+
             if(totalTime+duration<MAX_TIME){
                 if(song1.songMatches(newSongName,newArtist,duration) ||
                         song2.songMatches(newSongName,newArtist,duration) ||
@@ -121,7 +139,7 @@ public class Album
             }
         } else {
             System.out.println("Failed to create song, album is full. Please delete a song.");
-        }
+        }*/
     }
 
     public boolean albumNameMatches(String newAlbumName)
