@@ -243,14 +243,12 @@ public class SongCollection {
 			case 1:
 				if(albumCount == 2) {//IF THERE ARE 2 ALBUMS
 					//album 2 takes the spot of album 1 -> then gets deleted
-					albumSwitchData(album2, album1);
-					deleteAlbum(album2);
+					albumSwitchAndDelete(album2, album1);
 				}
 				else if(albumCount == 3) //IF THERE IS 3 ALBUMS
 				{
 					//album 3 takes the spot of album 1 -> then gets deleted
-					albumSwitchData(album3, album1);
-					deleteAlbum(album3);
+					albumSwitchAndDelete(album3, album1);
 				}
 				else{
 					deleteAlbum(album1); //IF THERE IS ONLY 1 ALBUM
@@ -265,8 +263,7 @@ public class SongCollection {
 					if (albumCount == 3)
 					{
 						//album 3 takes the spot of album 2 -> then gets deleted
-						albumSwitchData(album3, album2);
-						deleteAlbum(album3);
+						albumSwitchAndDelete(album3, album2);
 					}
 					else{
 						deleteAlbum(album2);
@@ -332,10 +329,12 @@ public class SongCollection {
 		albumView();
 	}
 
-	//big data switch.. fuck
-	void albumSwitchData(Album albumFrom, Album albumTo){
+	//big data switch... albumTo will get delete.
+	void albumSwitchAndDelete(Album albumFrom, Album albumTo){
+		String tempName = albumTo.getAlbumName(); //take temporary name for the album getting deleted
 		albumTo.resetAlbum(); //clear album that is receiving data
 		albumTo.setAlbumName(albumFrom.getAlbumName()); //set new name from old album name
+
 		int newSongCount = albumFrom.getSongCount(); //check the song count from old album
 		albumTo.setSongCount(newSongCount); //set the new song count
 		switch (newSongCount)
@@ -399,10 +398,13 @@ public class SongCollection {
 				break;
 			default:
 				//no songs.. do nothing?
-				run();
 				break;
 		}
 
+		albumFrom.resetAlbum();
+		albumCount -= 1;
+		System.out.println(tempName + " has been successfully deleted");
+		albumView();
 	}
 	//###########################################################################//
 }

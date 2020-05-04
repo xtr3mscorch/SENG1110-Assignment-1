@@ -66,6 +66,7 @@ public class Album
         song2.resetSong();
         song3.resetSong();
         song4.resetSong();
+        songCount = 0;
     }
 
     void createSong(){
@@ -87,6 +88,7 @@ public class Album
         /* CHECKING SYSTEM: Checks if enough space in album, checks duration, calls songMatches method from Song.java to
         check if song already exists in album */
         if(songCount<4){
+            System.out.println(songCount);
             if(totalTime+duration<MAX_TIME){
                 if(song1.songMatches(newSongName,newArtist,duration) ||
                         song2.songMatches(newSongName,newArtist,duration) ||
