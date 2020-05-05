@@ -34,10 +34,26 @@ public class Song
 	}
 
 	// Set and return genre of song.
-	public void setGenre(String g)
-	{
+	public void setGenre(String g){
 		genre = g;
 	}
+	public void genreInput(int g) {
+		switch (g) {
+			case 1:
+				setGenre("Rock");
+				break;
+			case 2:
+				setGenre("Pop");
+				break;
+			case 3:
+				setGenre("Hip-Hop");
+				break;
+			case 4:
+				setGenre("Bossa Nova");
+				break;
+		}
+	}
+
 	public String getGenre()
 	{
 		return genre;
@@ -65,11 +81,11 @@ public class Song
 		}
 	}
 
-	public void create(String newSongName,String newArtist,int newDuration,String newGenre){
+	public void create(String newSongName,String newArtist,int newDuration,int newGenre){
 		setName(newSongName);
 		setArtist(newArtist);
 		setDuration(newDuration);
-		setGenre(newGenre);
+		genreInput(newGenre);
 	}
 
 }

@@ -85,8 +85,7 @@ public class Album
 
 
 
-    void createSong(){
-        /*
+   /* void createSong(){
         // Prompt users for input values
         String newSongName;String newArtist;String newDuration;String newGenre;int duration;
         System.out.println("Name: ");
@@ -139,8 +138,8 @@ public class Album
             }
         } else {
             System.out.println("Failed to create song, album is full. Please delete a song.");
-        }*/
-    }
+        }
+    } */
 
     public boolean albumNameMatches(String newAlbumName)
     {

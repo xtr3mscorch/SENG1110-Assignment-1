@@ -13,7 +13,7 @@ public class SongCollection {
 	public static void main(String[] args) {
 		SongCollection sg = new SongCollection();
 		sg.initialiseAlbums();
-		System.out.print("Welcome to spotify \n");
+		System.out.print("Welcome to Terminal Music \n");
 		sg.run();
 	}
 
@@ -199,7 +199,7 @@ public class SongCollection {
 					}
 					break;
 				case 4:
-					DeleteAlbum();
+					//DeleteAlbum();
 					break;
 				case 5:
 					run();
@@ -216,6 +216,7 @@ public class SongCollection {
 
 	//#############################################//
 	// ALBUM DELETE //
+
 	void DeleteAlbum(){
 		System.out.println("Which album would you like to delete?");
 		switch (albumCount) { //only display album based on albumCount value
@@ -299,17 +300,22 @@ public class SongCollection {
 	//#############################################//
 	// NEW CREATE SONG ... Within SongCollection.java //
 	void createNewSong(Album selectedAlbum){
-		String newSongName;String newArtist;String newDuration;String newGenre;int duration;
+		String genreMenu = ("___________Select Genre:___________\n"
+				+ "1: Rock    "
+				+ "3: Hip-Hop\n"
+				+ "2: Pop     "
+				+ "4: Bossa Nova\n");
+		String newSongName;String newArtist;String newDuration;String newGenre;int genre;int duration;
 		System.out.println("Name: ");
 		newSongName = console.nextLine();
 		System.out.println("Artist: ");
 		newArtist = console.nextLine();
-		System.out.println("Duration: ");
+		System.out.println("Duration (s): ");
 		newDuration = console.nextLine();
-		// **NEED TO MAKE NEW MENU FOR GENRE WHERE THEY SELECT FROM A LIST**
-		System.out.println("Genre: ");
+		System.out.print(genreMenu);
 		newGenre = console.nextLine();
 
+		genre = Integer.parseInt(newGenre);
 		duration = Integer.parseInt(newDuration);
 
 		if(selectedAlbum.getSongCount() < 4)
@@ -325,22 +331,22 @@ public class SongCollection {
 					switch (selectedAlbum.getSongCount())
 					{
 						case 1:
-							selectedAlbum.song1.create(newSongName,newArtist,duration,newGenre);
+							selectedAlbum.song1.create(newSongName,newArtist,duration,genre);
 							break;
 						case 2:
-							selectedAlbum.song2.create(newSongName,newArtist,duration,newGenre);
+							selectedAlbum.song2.create(newSongName,newArtist,duration,genre);
 							break;
 						case 3:
-							selectedAlbum.song3.create(newSongName,newArtist,duration,newGenre);
+							selectedAlbum.song3.create(newSongName,newArtist,duration,genre);
 							break;
 						case 4:
-							selectedAlbum.song4.create(newSongName,newArtist,duration,newGenre);
+							selectedAlbum.song4.create(newSongName,newArtist,duration,genre);
 							break;
 					}
 					selectedAlbum.setTotalTime(selectedAlbum.getTotalTime() + duration);
 
 					// **FIX OUTPUT TO SHOW SONG NAME ADDED TO x ALBUM ETC.**
-					System.out.println("Created song!!!!!!");
+					System.out.println("x song added to x");
 				}
 			}
 			else{
@@ -463,6 +469,7 @@ public class SongCollection {
 		System.out.println(tempName + " has been successfully deleted");
 		albumView();
 	}
+
 	//###########################################################################//
 }
 
