@@ -62,12 +62,47 @@ public class Album
 
     // List all songs in album
     // **ADD SONG DETAILS (artist, duration, genre)**
-    void listSongs(){
-        System.out.println(albumName);
-        System.out.println("- " +song1.getName());
-        System.out.println("- " +song2.getName());
-        System.out.println("- " +song3.getName());
-        System.out.println("- " +song4.getName());
+    String listSongs(){
+        String songList = albumName + "\n"
+        +"- " +song1.getName()
+        +"- " +song2.getName()
+        +"- " +song3.getName()
+        +"- " +song4.getName();
+        return songList;
+    }
+
+    String listSongs(int genre){
+        String songList = albumName + "\n";
+        if (song1.getGenre()==genre){
+                    songList=songList+"- " +song1.getName()+"\n";
+                }
+        if (song2.getGenre()==genre){
+            songList=songList+"- " +song2.getName()+"\n";
+        }
+        if (song3.getGenre()==genre){
+            songList=songList+"- " +song3.getName()+"\n";
+        }
+        if (song4.getGenre()==genre){
+            songList=songList+"- " +song4.getName()+"\n";
+        }
+        return songList;
+    }
+
+    String listSongsDuration(int duration){
+        String songList = albumName + "\n";
+        if (song1.getName()!="Empty song" && song1.getDuration()<duration){
+            songList=songList+"- " +song1.getName()+"\n";
+        }
+        if (song2.getName()!="Empty song" && song2.getDuration()<duration){
+            songList=songList+"- " +song2.getName()+"\n";
+        }
+        if (song3.getName()!="Empty song" && song3.getDuration()<duration){
+            songList=songList+"- " +song3.getName()+"\n";
+        }
+        if (song4.getName()!="Empty song" && song4.getDuration()<duration){
+            songList=songList+"- " +song4.getName()+"\n";
+        }
+        return songList;
     }
 
 
@@ -82,6 +117,7 @@ public class Album
         song4.resetSong();
         songCount = 0;
     }
+
 
 
 
@@ -152,19 +188,4 @@ public class Album
                return false;
             }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

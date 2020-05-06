@@ -8,11 +8,10 @@ Version: 30/04/2020
 public class SongCollection {
 	private Album album1, album2, album3;
 	Scanner console = new Scanner(System.in);
-	int albumCount;
+	int albumCount=0,exit=0;
 
 	public static void main(String[] args) {
 		SongCollection sg = new SongCollection();
-		sg.initialiseAlbums();
 		System.out.print("Welcome to Terminal Music \n");
 		sg.run();
 	}
@@ -20,31 +19,34 @@ public class SongCollection {
 	//###########################################################################//
 	//////////////////////////////Main Menu////////////////////////////////////////
 	public void run() {
-		String mainMenu = ("____________Main Menu___________\n"
-				+ "1: Add album       "
-				+ "3: Song search\n"
-				+ "2: View albums     "
-				+ "4: Exit program\n");
-		System.out.print(mainMenu);
+		initialiseAlbums();
+		while(exit==0) {
+			String mainMenu = ("____________Main Menu___________\n"
+					+ "1: Add album       "
+					+ "3: Song search\n"
+					+ "2: View albums     "
+					+ "4: Exit program\n");
+			System.out.print(mainMenu);
 
-		///USER INPUT///
-		String input = console.nextLine();
-		switch (Integer.parseInt(input)) {
-			case 1:
-				albumCreate();
-				break;
-			case 2:
-				albumView();
-				break;
-			case 3:
-				searchMenu();
-				break;
-			case 4:
-				System.exit(0);
-				break;
-			default:
-				rebootFunction();
-				break;
+			///USER INPUT///
+			String input = console.nextLine();
+			switch (Integer.parseInt(input)) {
+				case 1:
+					albumCreate();
+					break;
+				case 2:
+					albumView();
+					break;
+				case 3:
+					searchMenu();
+					break;
+				case 4:
+					System.exit(0);
+					break;
+				default:
+					rebootFunction();
+					break;
+			}
 		}
 	}
 
@@ -65,21 +67,57 @@ public class SongCollection {
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
 			case 1:
-				// Genre search feature
+				System.out.println("Pick genre blah");
+				System.out.println("1: Rock");
+				System.out.println("2: Pop");
+				System.out.println("3: Hip-Hop");
+				System.out.println("4: Bossa Nova");
+				genreSearch(Integer.parseInt(console.nextLine()));
 				break;
 			case 2:
-				// Song length feature
+				System.out.println("Find songs with duration (s) shorter than: ");
+				durationSearch(Integer.parseInt(console.nextLine()));
 				break;
 			case 3:
 				viewAllSong();
 				break;
 			case 4:
-				System.exit(0);
+				exit=1;
 				break;
 			default:
 				rebootFunction();
 				break;
 		}
+	}
+
+	void genreSearch(int g){
+	String searchResult="";
+		if(album1.getAlbumName()!="Empty Slot") {
+			searchResult+=album1.listSongs(g);
+		}
+		if(album2.getAlbumName()!="Empty Slot") {
+			searchResult+=album2.listSongs(g);
+		}
+		if(album3.getAlbumName()!="Empty Slot") {
+			searchResult+=album3.listSongs(g);
+		}
+		System.out.println(searchResult);
+		//run();
+	}
+
+	void durationSearch(int g){
+		String searchResult="";
+		if(album1.getAlbumName()!="Empty Slot") {
+			searchResult+=album1.listSongsDuration(g);
+		}
+		if(album2.getAlbumName()!="Empty Slot") {
+			searchResult+=album2.listSongsDuration(g);
+		}
+		if(album3.getAlbumName()!="Empty Slot") {
+			searchResult+=album3.listSongsDuration(g);
+		}
+		System.out.println(searchResult);
+		//run();
 	}
 
 	//#############################################//
@@ -142,11 +180,11 @@ public class SongCollection {
 				}
 			}
 			System.out.println(newAlbumName + " has been successfully added");
-			run();
+			//run();
 		}
 		else{
-			System.out.println("album slots are full.");
-			run();
+			System.out.println("Album slots are full.");
+			//run();
 		}
 	}
 
@@ -199,10 +237,10 @@ public class SongCollection {
 					}
 					break;
 				case 4:
-					//DeleteAlbum();
+					DeleteAlbum();
 					break;
 				case 5:
-					run();
+					//run();
 					break;
 				default:
 					rebootFunction();
@@ -210,7 +248,7 @@ public class SongCollection {
 		}
 		else{
 			System.out.print("You have not added any albums!\n");
-			run();
+			//run();
 		}
 	}
 
@@ -286,10 +324,6 @@ public class SongCollection {
 				}
 				break;
 
-				// GO BACK
-			case 4:
-				albumView();
-				break;
 			default:
 				rebootFunction();
 				break;
@@ -372,8 +406,8 @@ public class SongCollection {
 
     //back to main menu with error message.. usually called when invalid input
 	void rebootFunction() {
-		System.out.println("Fatal Error... rebooting\n");
-		run();
+		System.out.println("Invalid input\n");
+		//run();
 	}
 
 	// Initialise new albums

@@ -6,8 +6,8 @@ Version: 30/04/2020
 
 public class Song
 {
-	private String name,artist,genre;
-	private int duration;
+	private String name,artist;
+	private int duration,genre;
 	
 	public Song(){
 		setName("Empty song");
@@ -33,28 +33,11 @@ public class Song
 		return artist;
 	}
 
-	// Set and return genre of song.
-	public void setGenre(String g){
+	public void setGenre(int g) {
 		genre = g;
 	}
-	public void genreInput(int g) {
-		switch (g) {
-			case 1:
-				setGenre("Rock");
-				break;
-			case 2:
-				setGenre("Pop");
-				break;
-			case 3:
-				setGenre("Hip-Hop");
-				break;
-			case 4:
-				setGenre("Bossa Nova");
-				break;
-		}
-	}
 
-	public String getGenre()
+	public int getGenre()
 	{
 		return genre;
 	}
@@ -85,7 +68,7 @@ public class Song
 		setName(newSongName);
 		setArtist(newArtist);
 		setDuration(newDuration);
-		genreInput(newGenre);
+		setGenre(newGenre);
 	}
 
 }
