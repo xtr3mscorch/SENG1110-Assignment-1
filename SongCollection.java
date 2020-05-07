@@ -62,7 +62,7 @@ public class SongCollection {
 				+ "1: Genre       "
 				+ " 3: View all\n"
 				+ "2: Duration     "
-				+ "4: Exit program\n");
+				+ "4: Back\n");
 		System.out.print(mainMenu);
 
 		// USER INPUT TO SELECT MENU OPTION
@@ -86,7 +86,7 @@ public class SongCollection {
 				viewAllSong();
 				break;
 			case 4:
-				exit=1;
+				//exit=1;
 				break;
 			default:
 				rebootFunction();
@@ -137,17 +137,23 @@ public class SongCollection {
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
 			case 1:
-				currentAlbum.listSongs();
+				if (currentAlbum.getSongCount() > 0) {
+					System.out.println(currentAlbum.listSongs());
+					System.out.println("----------------" + "\n5: Back");
+					String back = console.nextLine(); //maybe add delete song option here too
+				}
+				else{
+					System.out.println("You have not added any songs.");
+				}
 				albumMenu(currentAlbum);
 				break;
 			case 2:
-				//currentAlbum.createSong();
 				createNewSong(currentAlbum);
 				albumMenu(currentAlbum);
 				break;
 			case 3:
-				//delete song function
-				run();
+				songDeleteMenu(currentAlbum);
+				albumMenu(currentAlbum);
 				break;
 			case 4:
 				//go back
@@ -157,6 +163,72 @@ public class SongCollection {
 				rebootFunction();
 				break;
 		}
+	}
+
+	//#############################################//
+	// SONG DELETE MENU //
+	void songDeleteMenu(Album selectedAlbum){
+
+		int tempSongCount = selectedAlbum.getSongCount();
+		if (tempSongCount > 0) {
+			System.out.println("Which song would you like to delete?");
+			System.out.println(selectedAlbum.listSongs());
+			System.out.println("----------------" + "\n5: Back");
+
+			String input = console.nextLine();
+			switch (Integer.parseInt(input))
+			{
+				case 1:
+					//delete song 1
+					if (tempSongCount == 1) //if this is the only song in the album... no data switching required.
+					{
+						deleteSong(selectedAlbum, 1);
+					}
+					break;
+				case 2:
+					//delete song 2
+					if (tempSongCount > 1)
+					{
+						if (tempSongCount == 2) //if there are only two songs in the album.
+						{
+							deleteSong(selectedAlbum, 2);
+						}
+
+					}
+					break;
+				case 3:
+					//delete song 3
+					if (tempSongCount > 2)
+					{
+						if (tempSongCount == 3) //if there are 3 songs in the album.
+						{
+							deleteSong(selectedAlbum,3);
+						}
+					}
+					break;
+				case 4:
+					if (tempSongCount > 3)
+					{
+						//delete song 4
+						if (tempSongCount == 4) //if there are 4 songs in the album.
+						{
+							deleteSong(selectedAlbum,4);
+						}
+					}
+					break;
+				case 5:
+					//go back
+
+					break;
+				default:
+					rebootFunction();
+					break;
+			}
+		}
+		else{
+			System.out.println("You have not added any songs.");
+		}
+
 	}
 
 	//#############################################//
@@ -252,7 +324,6 @@ public class SongCollection {
 		}
 		else{
 			System.out.print("You have not added any albums!\n");
-			//run();
 		}
 	}
 
@@ -384,7 +455,7 @@ public class SongCollection {
 					selectedAlbum.setTotalTime(selectedAlbum.getTotalTime() + duration);
 
 					// **FIX OUTPUT TO SHOW SONG NAME ADDED TO x ALBUM ETC.**
-					System.out.println("x song added to x");
+					System.out.println(newSongName + " has been added to " + selectedAlbum.getAlbumName());
 				}
 			}
 			else{
@@ -419,6 +490,39 @@ public class SongCollection {
 		album1 = new Album();
 		album2 = new Album();
 		album3 = new Album();
+	}
+
+	//delete song function ... called from "songDeleteMenu()"
+	void deleteSong(Album selectedAlbum, int selectedSong)
+	{
+		String tempName = "";
+
+		switch (selectedSong)
+		{
+			case 1:
+				tempName = selectedAlbum.song1.getName();
+				selectedAlbum.song1.resetSong();
+				selectedAlbum.setSongCount(selectedAlbum.getSongCount() - 1);
+				break;
+			case 2:
+				tempName = selectedAlbum.song2.getName();
+				selectedAlbum.song2.resetSong();
+				selectedAlbum.setSongCount(selectedAlbum.getSongCount() - 1);
+				break;
+			case 3:
+				tempName = selectedAlbum.song3.getName();
+				selectedAlbum.song3.resetSong();
+				selectedAlbum.setSongCount(selectedAlbum.getSongCount() - 1);
+				break;
+			case 4:
+				tempName = selectedAlbum.song4.getName();
+				selectedAlbum.song4.resetSong();
+				selectedAlbum.setSongCount(selectedAlbum.getSongCount() - 1);
+				break;
+		}
+
+		System.out.println(tempName + " has been successfully deleted from " + selectedAlbum.getAlbumName());
+		//albumMenu(selectedAlbum);
 	}
 
 	void deleteAlbum(Album selectedAlbum){

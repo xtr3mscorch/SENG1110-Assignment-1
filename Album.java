@@ -69,11 +69,29 @@ public class Album
     // LISTS ALL SONGS OF AN ALBUM THROUGH getName METHOD
     /////////////////////////////////////////////////////// **ADD SONG DETAILS (artist, duration, genre) its in the marking guideline**
     String listSongs(){
-        String songList = albumName + "\n"
-        +"- " +song1.getName()
-        +"- " +song2.getName()
-        +"- " +song3.getName()
-        +"- " +song4.getName();
+        String songList = ("______" + albumName + " Song List:_______\n");
+        switch (songCount)
+        {
+            case 1:
+                songList += "1. " +song1.getName();
+
+                break;
+            case 2:
+                songList += "1. " +song1.getName()+ "\n";
+                songList += "2. " +song2.getName();
+                break;
+            case 3:
+                songList += "1. " +song1.getName()+ "\n";
+                songList += "2. " +song2.getName()+ "\n";
+                songList += "3. " +song3.getName();
+                break;
+            case 4:
+                songList += "1. " +song1.getName()+ "\n";
+                songList += "2. " +song2.getName()+ "\n";
+                songList += "3. " +song3.getName()+ "\n";
+                songList += "4. " +song4.getName();
+                break;
+        }
         return songList;
     }
 
