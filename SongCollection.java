@@ -1,8 +1,8 @@
 import java.util.*;
 /*
-
-Authors: Xavier Williams, Riley Lane
-Version: 30/04/2020
+DescriptionX
+Authors: Xavier Williams (C3329774), Riley Lane (C)
+Last Edited: 08/05/2020
 */
 
 public class SongCollection {
@@ -10,14 +10,15 @@ public class SongCollection {
 	Scanner console = new Scanner(System.in);
 	int albumCount=0,exit=0;
 
+	// MAIN METHOD
 	public static void main(String[] args) {
 		SongCollection sg = new SongCollection();
 		System.out.print("Welcome to Terminal Music \n");
 		sg.run();
 	}
 
-	//###########################################################################//
-	//////////////////////////////Main Menu////////////////////////////////////////
+	// MAIN MENU METHOD
+	// WHILE LOOP MAKES PROGRAM ALWAYS RETURN TO MAIN MENU UNTIL exit VALUE IS SET TO 1, WHEN USER REQUESTS TO EXIT
 	public void run() {
 		initialiseAlbums();
 		while(exit==0) {
@@ -28,7 +29,7 @@ public class SongCollection {
 					+ "4: Exit program\n");
 			System.out.print(mainMenu);
 
-			///USER INPUT///
+			// USER INPUT TO SELECT MENU OPTION
 			String input = console.nextLine();
 			switch (Integer.parseInt(input)) {
 				case 1:
@@ -54,7 +55,8 @@ public class SongCollection {
 	//////////////////////User Input Functions/////////////////////////////////////
 
 	//#############################################//
-	// SONG SEARCH MENU //
+
+	// SONG SEARCH MENU
 	void searchMenu() {
 		String mainMenu = ("___________Search By:___________\n"
 				+ "1: Genre       "
@@ -63,10 +65,11 @@ public class SongCollection {
 				+ "4: Exit program\n");
 		System.out.print(mainMenu);
 
-		//USER INPUT//
+		// USER INPUT TO SELECT MENU OPTION
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
 			case 1:
+				// DISPLAYS GENRE OPTIONS AND CALLS genreSearch METHOD WITH USERS INPUT VALUE
 				System.out.println("Pick genre blah");
 				System.out.println("1: Rock");
 				System.out.println("2: Pop");
@@ -75,6 +78,7 @@ public class SongCollection {
 				genreSearch(Integer.parseInt(console.nextLine()));
 				break;
 			case 2:
+				// CALLS durationSearch METHOD WITH USERS INPUT VALUE
 				System.out.println("Find songs with duration (s) shorter than: ");
 				durationSearch(Integer.parseInt(console.nextLine()));
 				break;
@@ -90,6 +94,7 @@ public class SongCollection {
 		}
 	}
 
+	// CHECKS IF ALBUM HAS BEEN MADE THEN
 	void genreSearch(int g){
 	String searchResult="";
 		if(album1.getAlbumName()!="Empty Slot") {
@@ -102,7 +107,6 @@ public class SongCollection {
 			searchResult+=album3.listSongs(g);
 		}
 		System.out.println(searchResult);
-		//run();
 	}
 
 	void durationSearch(int g){
@@ -407,7 +411,6 @@ public class SongCollection {
     //back to main menu with error message.. usually called when invalid input
 	void rebootFunction() {
 		System.out.println("Invalid input\n");
-		//run();
 	}
 
 	// Initialise new albums

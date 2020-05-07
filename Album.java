@@ -1,19 +1,18 @@
 /*
-
-Authors: Xavier Williams, Riley Lane
-Version: 30/04/2020
+Stores variables for individual album objects
+Authors: Xavier Williams (C3329774), Riley Lane (C)
+Last Edited: 08/05/2020
 */
-import java.util.*;
+
 public class Album
 {
-    // Instance variables
+    // INSTANCE VARIABLES
     private String albumName,defaultName="Empty Slot";
     public Song song1, song2, song3, song4;
     private int totalTime,songCount;
     private final int MAX_TIME = 720; //12 minutes
-    Scanner console = new Scanner(System.in);
 
-    // Constructor
+    // ALBUM CONSTRUCTOR
     public Album()
     {
         setAlbumName(defaultName);
@@ -21,38 +20,45 @@ public class Album
         songCount=0;
     }
 
-    // Set Get Methods
+    // SET ALBUM NAME
     public void setAlbumName (String newAlbumName)
     {
         albumName = newAlbumName;
     }
+
+    // RETURN ALBUM NAME
     public String getAlbumName()
     {
         return(albumName);
     }
 
-    //new code for deleting album and copying songs
-    public int getSongCount(){
-        return (songCount);
-    }
+    // SET SONG COUNT VALUE
     public void setSongCount(int newSongCount){
         songCount = newSongCount;
     }
 
+    // RETURN SONG COUNT VALUE
+    public int getSongCount(){
+        return (songCount);
+    }
+
+    // SET ALBUM TOTAL TIME VALUE
+    public void setTotalTime(int newTotalTime){
+        totalTime = newTotalTime;
+    }
+
+    // RETURN ALBUM TOTAL TIME VALUE
     public int getTotalTime()
     {
         return (totalTime);
     }
-    public void setTotalTime(int newTotalTime){
-        totalTime = newTotalTime;
-    }
+
+    // RETURN SET MAX TIME FOR ALBUM
     public int getMaxTime(){
         return (MAX_TIME);
     }
 
-
-
-    // Initialise Songs
+    // INITIALISE SONGS
     private void initialiseSongs() {
         song1 = new Song();
         song2 = new Song();
@@ -60,8 +66,8 @@ public class Album
         song4 = new Song();
     }
 
-    // List all songs in album
-    // **ADD SONG DETAILS (artist, duration, genre)**
+    // LISTS ALL SONGS OF AN ALBUM THROUGH getName METHOD
+    /////////////////////////////////////////////////////// **ADD SONG DETAILS (artist, duration, genre) its in the marking guideline**
     String listSongs(){
         String songList = albumName + "\n"
         +"- " +song1.getName()
@@ -71,6 +77,7 @@ public class Album
         return songList;
     }
 
+    // USES IF STATEMENTS TO CHECK IF EACH SONG MATCHES THE SELECTED GENRE AND ADDS TO STRING IF TRUE
     String listSongs(int genre){
         String songList = albumName + "\n";
         if (song1.getGenre()==genre){
@@ -88,6 +95,7 @@ public class Album
         return songList;
     }
 
+    // USES IF STATEMENTS TO CHECK IF EACH SONG IS UNDER INPUT DURATION AND ADDS TO STRING IS TRUE
     String listSongsDuration(int duration){
         String songList = albumName + "\n";
         if (song1.getName()!="Empty song" && song1.getDuration()<duration){
@@ -105,10 +113,7 @@ public class Album
         return songList;
     }
 
-
-
-    // Reset album name and calls resetSong method from Song.java
-    // **Will be used to for 'Delete album'**
+    // DELETE ALBUM METHOD CALLS resetSong() METHOD FOR EACH SONG OF ALBUM
     public void resetAlbum(){
         setAlbumName(defaultName);
         song1.resetSong();
@@ -118,65 +123,7 @@ public class Album
         songCount = 0;
     }
 
-
-
-
-   /* void createSong(){
-        // Prompt users for input values
-        String newSongName;String newArtist;String newDuration;String newGenre;int duration;
-        System.out.println("Name: ");
-        newSongName = console.nextLine();
-        System.out.println("Artist: ");
-        newArtist = console.nextLine();
-        System.out.println("Duration: ");
-        newDuration = console.nextLine();
-        // **NEED TO MAKE NEW MENU FOR GENRE WHERE THEY SELECT FROM A LIST**
-        System.out.println("Genre: ");
-        newGenre = console.nextLine();
-
-        // Had to add this because it would make errors when users input both strings and ints, they had to all be strings I worked out.
-        duration = Integer.parseInt(newDuration);
-
-        /* CHECKING SYSTEM: Checks if enough space in album, checks duration, calls songMatches method from Song.java to
-        check if song already exists in album */
-        /*
-        if(songCount<4){
-
-            if(totalTime+duration<MAX_TIME){
-                if(song1.songMatches(newSongName,newArtist,duration) ||
-                        song2.songMatches(newSongName,newArtist,duration) ||
-                        song3.songMatches(newSongName,newArtist,duration) ||
-                        song4.songMatches(newSongName,newArtist,duration)){
-                    System.out.println("Song already exists.");
-                } else{
-                    songCount+=1;
-                    switch (songCount){
-                        case 1:
-                            song1.create(newSongName,newArtist,duration,newGenre);
-                            break;
-                        case 2:
-                            song2.create(newSongName,newArtist,duration,newGenre);
-                            break;
-                        case 3:
-                            song3.create(newSongName,newArtist,duration,newGenre);
-                            break;
-                        case 4:
-                            song4.create(newSongName,newArtist,duration,newGenre);
-                            break;
-                    }
-                    totalTime+=duration;
-                    // **FIX OUTPUT TO SHOW SONG NAME ADDED TO x ALBUM ETC.**
-                    System.out.println("Created song!!!!!!");
-                }
-
-            } else{
-                System.out.println("Failed to create song, duration of album exceeds limit.");
-            }
-        } else {
-            System.out.println("Failed to create song, album is full. Please delete a song.");
-        }
-    } */
-
+    // RETURNS IF ALBUM NAME MATCHES ONE ALREADY MADE? DOES IT? IDK
     public boolean albumNameMatches(String newAlbumName)
     {
         if(newAlbumName == albumName)

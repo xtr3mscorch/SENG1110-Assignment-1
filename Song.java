@@ -1,61 +1,70 @@
 /* 
-Stores details and features of individual songs
-Authors: Xavier Williams, Riley Lane
-Version: 30/04/2020
+Stores variables for individual song objects
+Authors: Xavier Williams (C3329774), Riley Lane (C)
+Last Edited: 08/05/2020
 */
 
 public class Song
 {
 	private String name,artist;
 	private int duration,genre;
-	
+
+	// SONG CONSTRUCTOR
 	public Song(){
 		setName("Empty song");
 	}
 
-	// Set and return name of song.
+	// SET SONG NAME
 	public void setName(String n)
 	{
 		 name = n;
-	}	
+	}
+	// RETURN SONG NAME
 	public String getName()
 	{
 		return name;
 	}
 	
-	// Set and return name of artist.
+	// SET SONG ARTIST
 	public void setArtist(String a)
 	{
 		artist = a;
 	}
+	// RETURN SONG ARTIST
 	public String getArtist()
 	{
 		return artist;
 	}
 
+	// SET SONG GENRE
 	public void setGenre(int g) {
 		genre = g;
 	}
 
+	// RETURN SONG GENRE
 	public int getGenre()
 	{
 		return genre;
 	}
 
-	// Set and return duration of song.
+	// SET SONG DURATION
 	public void setDuration(int d)
 	{
 		duration = d;
 	}
+
+	// RETURN SONG DURATION
 	public int getDuration()
 	{
 		return duration;
 	}
 
+	// DELETE SONG METHOD CHANGES NAME TO 'Empty song' WHERE IT WILL NO LONGER BE RETURNED IN LISTS
 	public void resetSong(){
 		setName("Empty song");
 }
-	// Copy this for duration search and genre search
+
+	// CHECK SOMETHING IDK EXACTLY
 	public boolean songMatches(String newSongName,String newArtist,int newDuration){
 		if(newSongName==name && newArtist==artist && newDuration==duration){
 			return true;
@@ -64,6 +73,7 @@ public class Song
 		}
 	}
 
+	// CREATE METHOD TAKES USER INPUTS AND USES SET FUNCTIONS FOR EACH SONG VARIABLE
 	public void create(String newSongName,String newArtist,int newDuration,int newGenre){
 		setName(newSongName);
 		setArtist(newArtist);
