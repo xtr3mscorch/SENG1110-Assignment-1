@@ -68,8 +68,12 @@ public class Album
 
     // LISTS ALL SONGS OF AN ALBUM THROUGH getName METHOD
     /////////////////////////////////////////////////////// **ADD SONG DETAILS (artist, duration, genre) its in the marking guideline**
-    String listSongs(){
-        String songList = ("______" + albumName + " Song List:_______\n");
+    String listSongs(boolean isDeleting){
+        String songList = "";
+        if (!isDeleting)
+        {
+            songList = ("______" + albumName + " Song List:_______\n");
+        }
         switch (songCount)
         {
             case 1:
@@ -141,7 +145,7 @@ public class Album
         songCount = 0;
     }
 
-    // RETURNS IF ALBUM NAME MATCHES ONE ALREADY MADE? DOES IT? IDK
+    // RETURNS IF ALBUM NAME MATCHES ONE ALREADY MADE
     public boolean albumNameMatches(String newAlbumName)
     {
         if(newAlbumName == albumName)

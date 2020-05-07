@@ -51,12 +51,12 @@ public class SongCollection {
 		}
 	}
 
-	//###########################################################################//
-	//////////////////////User Input Functions/////////////////////////////////////
+	//#####################################################################################################//
+	/////////////////////////////////////////User Input Functions////////////////////////////////////////////
 
-	//#############################################//
 
-	// SONG SEARCH MENU
+	//#####################################################################//
+	///////////////////////// SEARCH MENU ///////////////////////////////////
 	void searchMenu() {
 		String mainMenu = ("___________Search By:___________\n"
 				+ "1: Genre       "
@@ -86,7 +86,6 @@ public class SongCollection {
 				viewAllSong();
 				break;
 			case 4:
-				//exit=1;
 				break;
 			default:
 				rebootFunction();
@@ -121,11 +120,11 @@ public class SongCollection {
 			searchResult+=album3.listSongsDuration(g);
 		}
 		System.out.println(searchResult);
-		//run();
 	}
 
-	//#############################################//
-	// ALBUM SONG VIEW // SECONDARY LAYER FOR ALBUM VIEW
+	//#####################################################################//
+	///////////////////////// ALBUM OPTIONS MENU ////////////////////////////
+	//gives the user choices such as list songs, add songs and delete songs.
 	void albumMenu(Album currentAlbum) {
 		System.out.println("______Album: " + currentAlbum.getAlbumName() + "_______");
 		System.out.println("1: List songs");
@@ -138,7 +137,7 @@ public class SongCollection {
 		switch (Integer.parseInt(input)) {
 			case 1:
 				if (currentAlbum.getSongCount() > 0) {
-					System.out.println(currentAlbum.listSongs());
+					System.out.println(currentAlbum.listSongs(false));
 					System.out.println("----------------" + "\n5: Back");
 					String back = console.nextLine(); //maybe add delete song option here too
 				}
@@ -165,122 +164,11 @@ public class SongCollection {
 		}
 	}
 
-	//#############################################//
-	// SONG DELETE MENU //
-	void songDeleteMenu(Album selectedAlbum){
 
-		int tempSongCount = selectedAlbum.getSongCount();
-		String tempSongName;
-		if (tempSongCount > 0) {
-			System.out.println("Which song would you like to delete?");
-			System.out.println(selectedAlbum.listSongs());
-			System.out.println("----------------" + "\n5: Back");
 
-			String input = console.nextLine();
-			switch (Integer.parseInt(input))
-			{
-				case 1:
-					//delete song 1
-					tempSongName = selectedAlbum.song1.getName();
-					switch (tempSongCount){
-						case 1:
-							deleteSong(selectedAlbum, 1, tempSongName);
-							break;
-						case 2:
-							//take data from *song 2* and move it to *song 1* ... *song 2* gets deleted.
-							selectedAlbum.song1.setName(selectedAlbum.song2.getName());
-							selectedAlbum.song1.setArtist(selectedAlbum.song2.getArtist());
-							selectedAlbum.song1.setDuration(selectedAlbum.song2.getDuration());
-							selectedAlbum.song1.setGenre(selectedAlbum.song2.getGenre());
-							deleteSong(selectedAlbum, 2, tempSongName);
-							break;
-						case 3:
-							//take data from *song 3* and move it to *song 1* ... *song 3* gets deleted.
-							selectedAlbum.song1.setName(selectedAlbum.song3.getName());
-							selectedAlbum.song1.setArtist(selectedAlbum.song3.getArtist());
-							selectedAlbum.song1.setDuration(selectedAlbum.song3.getDuration());
-							selectedAlbum.song1.setGenre(selectedAlbum.song3.getGenre());
-							deleteSong(selectedAlbum, 3, tempSongName);
-							break;
-						case 4:
-							//take data from *song 4* and move it to *song 1* ... *song 4* gets deleted.
-							selectedAlbum.song1.setName(selectedAlbum.song4.getName());
-							selectedAlbum.song1.setArtist(selectedAlbum.song4.getArtist());
-							selectedAlbum.song1.setDuration(selectedAlbum.song4.getDuration());
-							selectedAlbum.song1.setGenre(selectedAlbum.song4.getGenre());
-							deleteSong(selectedAlbum, 4, tempSongName);
-							break;
-					}
-					break;
-				case 2:
-					//delete song 2
-					tempSongName = selectedAlbum.song2.getName();
-					switch (tempSongCount){
-						case 2:
-							deleteSong(selectedAlbum, 2, tempSongName);
-							break;
-						case 3:
-							//take data from *song 3* and move it to *song 2* ... *song 3* gets deleted.
-							selectedAlbum.song2.setName(selectedAlbum.song3.getName());
-							selectedAlbum.song2.setArtist(selectedAlbum.song3.getArtist());
-							selectedAlbum.song2.setDuration(selectedAlbum.song3.getDuration());
-							selectedAlbum.song2.setGenre(selectedAlbum.song3.getGenre());
-							deleteSong(selectedAlbum, 3, tempSongName);
-							break;
-						case 4:
-							//take data from *song 4* and move it to *song 2* ... *song 4* gets deleted.
-							selectedAlbum.song2.setName(selectedAlbum.song4.getName());
-							selectedAlbum.song2.setArtist(selectedAlbum.song4.getArtist());
-							selectedAlbum.song2.setDuration(selectedAlbum.song4.getDuration());
-							selectedAlbum.song2.setGenre(selectedAlbum.song4.getGenre());
-							deleteSong(selectedAlbum, 4, tempSongName);
-							break;
-					}
-					break;
-				case 3:
-					//delete song 3
-					tempSongName = selectedAlbum.song3.getName();
-					switch (tempSongCount){
-						case 3:
-							deleteSong(selectedAlbum, 3, tempSongName);
-							break;
-						case 4:
-							//take data from *song 4* and move it to *song 3* ... *song 4* gets deleted.
-							selectedAlbum.song3.setName(selectedAlbum.song4.getName());
-							selectedAlbum.song3.setArtist(selectedAlbum.song4.getArtist());
-							selectedAlbum.song3.setDuration(selectedAlbum.song4.getDuration());
-							selectedAlbum.song3.setGenre(selectedAlbum.song4.getGenre());
-							deleteSong(selectedAlbum, 4, tempSongName);
-							break;
-					}
-					break;
-				case 4:
-					if (tempSongCount > 3)
-					{
-						//delete song 4
-						if (tempSongCount == 4) //if there are 4 songs in the album.
-						{
-							deleteSong(selectedAlbum,4, selectedAlbum.song4.getName());
-						}
-					}
-					break;
-				case 5:
-					//go back
-
-					break;
-				default:
-					rebootFunction();
-					break;
-			}
-		}
-		else{
-			System.out.println("You have not added any songs.");
-		}
-
-	}
-
-	//#############################################//
-	// ALBUM CREATE MENU //
+	//#####################################################################//
+	///////////////////////// ALBUM CREATE MENU /////////////////////////////
+	//asks the user for an album name if max album count not reached.
 	void albumCreate() {
 		if(albumCount<3) {
 			System.out.println("Album name: ");
@@ -304,16 +192,16 @@ public class SongCollection {
 				}
 			}
 			System.out.println(newAlbumName + " has been successfully added");
-			//run();
 		}
 		else{
 			System.out.println("Album slots are full.");
-			//run();
 		}
 	}
 
-	//#############################################//
-	// ALBUM VIEW MENU //
+	//#####################################################################//
+	///////////////////////// ALBUM VIEW MENU ///////////////////////////////
+	//gives the user a menu to choose an album -> then displays more options
+	//option to delete an album displayed here.
 	void albumView() {
 		if(albumCount > 0) {
 			System.out.println("_________Albums: select one_________");
@@ -330,6 +218,8 @@ public class SongCollection {
 					System.out.println("2: " + album2.getAlbumName());
 					System.out.println("3: " + album3.getAlbumName());
 					break;
+				case 5:
+					break;
 				default:
 					rebootFunction();
 					break;
@@ -341,11 +231,13 @@ public class SongCollection {
 			String input = console.nextLine();
 			switch (Integer.parseInt(input)) {
 				case 1:
+					//view album 1 menu
 					albumMenu(album1);
 					break;
 				case 2:
 					if (albumCount > 1)
 					{
+						//view album 2 menu
 						albumMenu(album2);
 					}else {
 						rebootFunction();
@@ -354,6 +246,7 @@ public class SongCollection {
 				case 3:
 					if (albumCount > 2)
 					{
+						//view album 3 menu
 						albumMenu(album3);
 					}
 					else{
@@ -361,10 +254,7 @@ public class SongCollection {
 					}
 					break;
 				case 4:
-					DeleteAlbum();
-					break;
-				case 5:
-					//run();
+					deleteAlbumMenu();
 					break;
 				default:
 					rebootFunction();
@@ -375,10 +265,10 @@ public class SongCollection {
 		}
 	}
 
-	//#############################################//
-	// ALBUM DELETE //
-
-	void DeleteAlbum(){
+	//#####################################################################//
+	///////////////////////// ALBUM DELETE MENU /////////////////////////////
+	//ask the user to choose an album to delete.
+	void deleteAlbumMenu(){
 		System.out.println("Which album would you like to delete?");
 		switch (albumCount) { //only display album based on albumCount value
 			case 1:
@@ -451,11 +341,12 @@ public class SongCollection {
 				rebootFunction();
 				break;
 		}
-
 	}
 
-	//#############################################//
-	// NEW CREATE SONG ... Within SongCollection.java //
+	//#####################################################################//
+	/////////////////////////// CREATE NEW SONG /////////////////////////////
+	//asks the user for 4 inputs. name, artist, genre and duration
+	//checks if under song limit (getSongCount()) < 4
 	void createNewSong(Album selectedAlbum){
 		String genreMenu = ("___________Select Genre:___________\n"
 				+ "1: Rock    "
@@ -502,7 +393,6 @@ public class SongCollection {
 					}
 					selectedAlbum.setTotalTime(selectedAlbum.getTotalTime() + duration);
 
-					// **FIX OUTPUT TO SHOW SONG NAME ADDED TO x ALBUM ETC.**
 					System.out.println(newSongName + " has been added to " + selectedAlbum.getAlbumName());
 				}
 			}
@@ -515,6 +405,121 @@ public class SongCollection {
 		}
 	}
 
+	//#####################################################################//
+	/////////////////////////// SONG DELETE MENU ///////////////////////////
+	void songDeleteMenu(Album selectedAlbum){
+
+		int tempSongCount = selectedAlbum.getSongCount();
+		String tempSongName;
+		if (tempSongCount > 0) {
+			System.out.println("Which song would you like to delete?");
+			System.out.println(selectedAlbum.listSongs(true));
+			System.out.println("----------------" + "\n5: Back");
+
+			String input = console.nextLine();
+			switch (Integer.parseInt(input))
+			{
+				case 1:
+					//delete song 1
+					tempSongName = selectedAlbum.song1.getName();
+					switch (tempSongCount){
+						case 1:
+							//if there is only 1 song in the album:
+							deleteSong(selectedAlbum, 1, tempSongName);
+							break;
+						case 2:
+							//take data from *song 2* and move it to *song 1* ... *song 2* gets deleted.
+							selectedAlbum.song1.setName(selectedAlbum.song2.getName());
+							selectedAlbum.song1.setArtist(selectedAlbum.song2.getArtist());
+							selectedAlbum.song1.setDuration(selectedAlbum.song2.getDuration());
+							selectedAlbum.song1.setGenre(selectedAlbum.song2.getGenre());
+							deleteSong(selectedAlbum, 2, tempSongName);
+							break;
+						case 3:
+							//take data from *song 3* and move it to *song 1* ... *song 3* gets deleted.
+							selectedAlbum.song1.setName(selectedAlbum.song3.getName());
+							selectedAlbum.song1.setArtist(selectedAlbum.song3.getArtist());
+							selectedAlbum.song1.setDuration(selectedAlbum.song3.getDuration());
+							selectedAlbum.song1.setGenre(selectedAlbum.song3.getGenre());
+							deleteSong(selectedAlbum, 3, tempSongName);
+							break;
+						case 4:
+							//take data from *song 4* and move it to *song 1* ... *song 4* gets deleted.
+							selectedAlbum.song1.setName(selectedAlbum.song4.getName());
+							selectedAlbum.song1.setArtist(selectedAlbum.song4.getArtist());
+							selectedAlbum.song1.setDuration(selectedAlbum.song4.getDuration());
+							selectedAlbum.song1.setGenre(selectedAlbum.song4.getGenre());
+							deleteSong(selectedAlbum, 4, tempSongName);
+							break;
+					}
+					break;
+				case 2:
+					//delete song 2
+					tempSongName = selectedAlbum.song2.getName();
+					switch (tempSongCount){
+						case 2:
+							//if there are only 2 songs in the album:
+							deleteSong(selectedAlbum, 2, tempSongName);
+							break;
+						case 3:
+							//take data from *song 3* and move it to *song 2* ... *song 3* gets deleted.
+							selectedAlbum.song2.setName(selectedAlbum.song3.getName());
+							selectedAlbum.song2.setArtist(selectedAlbum.song3.getArtist());
+							selectedAlbum.song2.setDuration(selectedAlbum.song3.getDuration());
+							selectedAlbum.song2.setGenre(selectedAlbum.song3.getGenre());
+							deleteSong(selectedAlbum, 3, tempSongName);
+							break;
+						case 4:
+							//take data from *song 4* and move it to *song 2* ... *song 4* gets deleted.
+							selectedAlbum.song2.setName(selectedAlbum.song4.getName());
+							selectedAlbum.song2.setArtist(selectedAlbum.song4.getArtist());
+							selectedAlbum.song2.setDuration(selectedAlbum.song4.getDuration());
+							selectedAlbum.song2.setGenre(selectedAlbum.song4.getGenre());
+							deleteSong(selectedAlbum, 4, tempSongName);
+							break;
+					}
+					break;
+				case 3:
+					//delete song 3
+					tempSongName = selectedAlbum.song3.getName();
+					switch (tempSongCount){
+						case 3:
+							//if there are only 3 songs in the album:
+							deleteSong(selectedAlbum, 3, tempSongName);
+							break;
+						case 4:
+							//take data from *song 4* and move it to *song 3* ... *song 4* gets deleted.
+							selectedAlbum.song3.setName(selectedAlbum.song4.getName());
+							selectedAlbum.song3.setArtist(selectedAlbum.song4.getArtist());
+							selectedAlbum.song3.setDuration(selectedAlbum.song4.getDuration());
+							selectedAlbum.song3.setGenre(selectedAlbum.song4.getGenre());
+							deleteSong(selectedAlbum, 4, tempSongName);
+							break;
+					}
+					break;
+				case 4:
+					if (tempSongCount > 3)
+					{
+						//delete song 4
+						if (tempSongCount == 4) //if there are 4 songs in the album.
+						{
+							deleteSong(selectedAlbum,4, selectedAlbum.song4.getName());
+						}
+					}
+					break;
+				case 5:
+					//go back
+					break;
+				default:
+					rebootFunction();
+					break;
+			}
+		}
+		else{
+			System.out.println("You have not added any songs.");
+		}
+	}
+
 	//###########################################################################//
 	//////////////////////Secondary Functions//////////////////////////////////////
 
@@ -522,9 +527,9 @@ public class SongCollection {
 
     // Method to view all songs, calls listing method from Album.java
     void viewAllSong() {
-        album1.listSongs();
-        album2.listSongs();
-        album3.listSongs();
+        album1.listSongs(false);
+        album2.listSongs(false);
+        album3.listSongs(false);
     }
 
     //back to main menu with error message.. usually called when invalid input
@@ -532,7 +537,7 @@ public class SongCollection {
 		System.out.println("Invalid input\n");
 	}
 
-	// Initialise new albums
+	// Initialise new albums... called from run()... only should happen once.
 	void initialiseAlbums() {
 		albumCount = 0;
 		album1 = new Album();
@@ -540,9 +545,7 @@ public class SongCollection {
 		album3 = new Album();
 	}
 
-
-
-	//delete song function ... called from "songDeleteMenu()"
+	//delete song function ... called from "songDeleteMenu()"... resetsSong and reduces songCount value by 1.
 	void deleteSong(Album selectedAlbum, int selectedSong, String tempName)
 	{
 		switch (selectedSong)
@@ -568,15 +571,20 @@ public class SongCollection {
 		System.out.println(tempName + " has been successfully deleted from " + selectedAlbum.getAlbumName());
 	}
 
+	//delete album... called from DeleteAlbum()... resets Album name and reduces album count by 1.
 	void deleteAlbum(Album selectedAlbum){
 		String tempName = selectedAlbum.getAlbumName();
 		selectedAlbum.resetAlbum();
 		albumCount -= 1;
 		System.out.println(tempName + " has been successfully deleted");
-		albumView();
+		if(albumCount > 0) {
+			albumView();
+		}
 	}
 
-	//big data switch... albumTo will get delete.
+	// album data switch. will take song data from *albumFrom* and set to *albumTo*
+	// this is called from "albumDeleteMenu()" and allows albums to switch places
+	// to prevent any display errors within the menu functionality.
 	void albumSwitchAndDelete(Album albumFrom, Album albumTo){
 		String tempName = albumTo.getAlbumName(); //take temporary name for the album getting deleted
 		albumTo.resetAlbum(); //clear album that is receiving data
@@ -644,7 +652,7 @@ public class SongCollection {
 				albumTo.song4.setGenre(albumFrom.song4.getGenre());
 				break;
 			default:
-				//no songs.. do nothing?
+				//no songs.. do nothing.
 				break;
 		}
 
