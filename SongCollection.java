@@ -89,8 +89,8 @@ public class SongCollection {
 				break;
 			case 2:
 				// CALLS durationSearch METHOD WITH USERS INPUT VALUE
-				System.out.println("______________________________________________________");
-				System.out.println("________ Search by duration shorter than: (s) ________");
+				System.out.println("____________________________________________________________");
+				System.out.println("________ Search by duration shorter than: (minutes) ________");
 				durationSearch(Integer.parseInt(console.nextLine()));
 				break;
 			case 3:

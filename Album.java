@@ -118,7 +118,9 @@ public class Album
     }
 
     // USES IF STATEMENTS TO CHECK IF EACH SONG IS UNDER INPUT DURATION AND ADDS TO STRING IS TRUE
-    String listSongsDuration(int duration){
+    String listSongsDuration(int durationMinute){
+        int duration=durationMinute*60;
+
         String songList = albumName + "\n";
         if (song1.getName()!="Empty song" && song1.getDuration()<duration){
             songList=songList+"- " +song1.getName()+"\n";
