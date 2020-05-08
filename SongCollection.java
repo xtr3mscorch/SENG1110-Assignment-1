@@ -44,7 +44,7 @@ public class SongCollection {
 					searchMenu();
 					break;
 				case 4:
-					System.exit(0);
+					exit=1;
 					break;
 				default:
 					rebootFunction();
@@ -66,7 +66,10 @@ public class SongCollection {
 				+ "1: Genre       "
 				+ " 3: View all\n"
 				+ "2: Duration     "
-				+ "4: Back\n");
+				+ "4: Back\n")
+				+ "\n"
+				+ "_____________________\n"
+				+ "5: Exit program";
 		System.out.print(mainMenu);
 
 		// USER INPUT TO SELECT MENU OPTION
@@ -80,6 +83,8 @@ public class SongCollection {
 				System.out.println("2: Pop");
 				System.out.println("3: Hip-Hop");
 				System.out.println("4: Bossa Nova");
+				System.out.println("_____________________\n");
+				System.out.println("5: Exit program");
 				genreSearch(Integer.parseInt(console.nextLine()));
 				break;
 			case 2:
@@ -92,6 +97,9 @@ public class SongCollection {
 				viewAllSong();
 				break;
 			case 4:
+				break;
+			case 5:
+				exit = 1;
 				break;
 			default:
 				rebootFunction();
@@ -132,12 +140,13 @@ public class SongCollection {
 	///////////////////////// ALBUM OPTIONS MENU ////////////////////////////
 	//gives the user choices such as list songs, add songs and delete songs.
 	void albumMenu(Album currentAlbum) {
-		System.out.println("_______________________________");
+		System.out.println("___________________________");
 		System.out.println("______Album: " + currentAlbum.getAlbumName() + "_______");
 		System.out.println("1: List songs");
 		System.out.println("2: Add song");
 		System.out.println("3: Delete song");
-		System.out.println("----------------" + "\n4: Back");
+		System.out.println("______________________________\n");
+		System.out.println("4: Back       5: Exit program");
 
 		//USER INPUT//
 		String input = console.nextLine();
@@ -146,7 +155,7 @@ public class SongCollection {
 				if (currentAlbum.getSongCount() > 0) {
 					System.out.println(currentAlbum.listSongs(false));
 					System.out.println("----------------" + "\n5: Back");
-					String back = console.nextLine(); //maybe add delete song option here too
+					String back = console.nextLine();
 				}
 				else{
 					System.out.println("You have not added any songs.");
@@ -164,6 +173,9 @@ public class SongCollection {
 			case 4:
 				//go back
 				albumView();
+				break;
+			case 5:
+				exit = 1;
 				break;
 			default:
 				rebootFunction();
