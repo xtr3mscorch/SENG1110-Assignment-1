@@ -151,10 +151,8 @@ public class Album
         if(newAlbumName == albumName)
         {
             return true;
-        }
-        else
-            {
-               return false;
+        } else {
+            return false;
             }
     }
 }

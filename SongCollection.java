@@ -69,7 +69,7 @@ public class SongCollection {
 				+ "4: Back\n")
 				+ "\n"
 				+ "_____________________\n"
-				+ "5: Exit program";
+				+ "5: Exit program\n";
 		System.out.print(mainMenu);
 
 		// USER INPUT TO SELECT MENU OPTION
@@ -552,9 +552,12 @@ public class SongCollection {
 
     // Method to view all songs, calls listing method from Album.java
     void viewAllSong() {
-        album1.listSongs(false);
-        album2.listSongs(false);
-        album3.listSongs(false);
+		if (album1.getAlbumName()!="Empty Slot"){
+			System.out.println(album1.listSongs(false));}
+		if (album2.getAlbumName()!="Empty Slot"){
+			System.out.println(album2.listSongs(false));}
+		if (album3.getAlbumName()!="Empty Slot"){
+			System.out.println(album3.listSongs(false));}
     }
 
     //back to main menu with error message.. usually called when invalid input
