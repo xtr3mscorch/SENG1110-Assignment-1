@@ -100,19 +100,42 @@ public class Album
     }
 
     // USES IF STATEMENTS TO CHECK IF EACH SONG MATCHES THE SELECTED GENRE AND ADDS TO STRING IF TRUE
-    String listSongs(int genre){
-        String songList = albumName + "\n";
-        if (song1.getGenre()==genre){
-                    songList=songList+"- " +song1.getName()+"\n";
-                }
-        if (song2.getGenre()==genre){
-            songList=songList+"- " +song2.getName()+"\n";
+    String listSongsGenre(int genre){
+        String songList = "";
+        if (song1.getGenre()==genre || song2.getGenre()==genre || song3.getGenre()==genre || song4.getGenre()==genre)
+        {
+            songList += ("______ '" + albumName + "'  _______\n");
         }
-        if (song3.getGenre()==genre){
-            songList=songList+"- " +song3.getName()+"\n";
-        }
-        if (song4.getGenre()==genre){
-            songList=songList+"- " +song4.getName()+"\n";
+        switch (songCount)
+        {
+            case 1:
+                if (song1.getGenre()==genre){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                break;
+            case 2:
+                if (song1.getGenre()==genre){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                if (song2.getGenre()==genre){
+                    songList=songList+"2. " +song2.getName()+"\n";}
+                break;
+            case 3:
+                if (song1.getGenre()==genre){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                if (song2.getGenre()==genre){
+                    songList=songList+"2. " +song2.getName()+"\n";}
+                if (song3.getGenre()==genre){
+                    songList=songList+"3. " +song3.getName()+"\n";}
+                break;
+            case 4:
+                if (song1.getGenre()==genre){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                if (song2.getGenre()==genre){
+                    songList=songList+"2. " +song2.getName()+"\n";}
+                if (song3.getGenre()==genre){
+                    songList=songList+"3. " +song3.getName()+"\n";}
+                if (song4.getGenre()==genre){
+                    songList=songList+"4. " +song4.getName()+"\n";}
+                break;
         }
         return songList;
     }
@@ -121,20 +144,46 @@ public class Album
     String listSongsDuration(int durationMinute){
         int duration=durationMinute*60;
 
-        String songList = albumName + "\n";
-        if (song1.getName()!="Empty song" && song1.getDuration()<duration){
-            songList=songList+"- " +song1.getName()+"\n";
+        String songList = "";
+        if (song1.getName()!="Empty song" && song1.getDuration()<duration || song2.getName()!="Empty song" && song1.getDuration()<duration ||
+                song3.getName()!="Empty song" && song1.getDuration()<duration || song4.getName()!="Empty song" && song1.getDuration()<duration)
+        {songList += ("______ '" + albumName + "'  _______\n");}
+
+        switch(songCount)
+        {
+            case 1:
+                if (song1.getName()!="Empty song" && song1.getDuration()<duration){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                break;
+            case 2:
+                if (song1.getName()!="Empty song" && song1.getDuration()<duration){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                if (song2.getName()!="Empty song" && song2.getDuration()<duration){
+                        songList=songList+"2. " +song2.getName()+"\n";}
+
+                break;
+            case 3:
+                if (song1.getName()!="Empty song" && song1.getDuration()<duration){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                if (song2.getName()!="Empty song" && song2.getDuration()<duration){
+                    songList=songList+"2. " +song2.getName()+"\n";}
+                if (song3.getName()!="Empty song" && song3.getDuration()<duration){
+                    songList=songList+"3. " +song3.getName()+"\n";}
+                break;
+            case 4:
+                if (song1.getName()!="Empty song" && song1.getDuration()<duration){
+                    songList=songList+"1. " +song1.getName()+"\n";}
+                if (song2.getName()!="Empty song" && song2.getDuration()<duration){
+                    songList=songList+"2. " +song2.getName()+"\n";}
+                if (song3.getName()!="Empty song" && song3.getDuration()<duration){
+                    songList=songList+"3. " +song3.getName()+"\n";}
+                if (song4.getName()!="Empty song" && song4.getDuration()<duration){
+                    songList=songList+"4. " +song4.getName()+"\n";}
+                break;
+
         }
-        if (song2.getName()!="Empty song" && song2.getDuration()<duration){
-            songList=songList+"- " +song2.getName()+"\n";
-        }
-        if (song3.getName()!="Empty song" && song3.getDuration()<duration){
-            songList=songList+"- " +song3.getName()+"\n";
-        }
-        if (song4.getName()!="Empty song" && song4.getDuration()<duration){
-            songList=songList+"- " +song4.getName()+"\n";
-        }
-        return songList;
+
+        return (songList);
     }
 
     // DELETE ALBUM METHOD CALLS resetSong() METHOD FOR EACH SONG OF ALBUM
@@ -150,7 +199,7 @@ public class Album
     // RETURNS IF ALBUM NAME MATCHES ONE ALREADY MADE
     public boolean albumNameMatches(String newAlbumName)
     {
-        if(newAlbumName == albumName)
+        if(newAlbumName.equals(albumName))
         {
             return true;
         } else {

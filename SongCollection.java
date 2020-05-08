@@ -111,13 +111,13 @@ public class SongCollection {
 	void genreSearch(int g){
 	String searchResult="";
 		if(album1.getAlbumName()!="Empty Slot") {
-			searchResult+=album1.listSongs(g);
+			searchResult+=album1.listSongsGenre(g);
 		}
 		if(album2.getAlbumName()!="Empty Slot") {
-			searchResult+=album2.listSongs(g);
+			searchResult+=album2.listSongsGenre(g);
 		}
 		if(album3.getAlbumName()!="Empty Slot") {
-			searchResult+=album3.listSongs(g);
+			searchResult+=album3.listSongsGenre(g);
 		}
 		System.out.println(searchResult);
 	}
@@ -209,8 +209,10 @@ public class SongCollection {
 						album3.setAlbumName(newAlbumName);
 						break;
 				}
+
+				System.out.println(newAlbumName + " has been successfully added");
 			}
-			System.out.println(newAlbumName + " has been successfully added");
+
 		}
 		else{
 			System.out.println("Album slots are full.");
@@ -240,6 +242,7 @@ public class SongCollection {
 					System.out.println("3: " + album3.getAlbumName());
 					break;
 				case 5:
+					System.out.println("helo");
 					break;
 				default:
 					rebootFunction();
@@ -276,6 +279,9 @@ public class SongCollection {
 					break;
 				case 4:
 					deleteAlbumMenu();
+					break;
+				case 5:
+					//go back
 					break;
 				default:
 					rebootFunction();
@@ -370,32 +376,35 @@ public class SongCollection {
 	//asks the user for 4 inputs. name, artist, genre and duration
 	//checks if under song limit (getSongCount()) < 4
 	void createNewSong(Album selectedAlbum){
-		String genreMenu = (
-				"___________________________________\n"
-				+ "___________Select Genre:___________\n"
-				+ "1: Rock    "
-				+ "3: Hip-Hop\n"
-				+ "2: Pop     "
-				+ "4: Bossa Nova\n");
-		String newSongName;String newArtist;String newDuration;String newGenre;int genre;int duration;
-		System.out.println("Name: ");
-		newSongName = console.nextLine();
-		System.out.println("Artist: ");
-		newArtist = console.nextLine();
-		System.out.println("Duration (s): ");
-		newDuration = console.nextLine();
-		System.out.print(genreMenu);
-		newGenre = console.nextLine();
-
-		genre = Integer.parseInt(newGenre);
-		duration = Integer.parseInt(newDuration);
-
 		if(selectedAlbum.getSongCount() < 4)
 		{
+			String genreMenu = (
+					"___________________________________\n"
+							+ "___________Select Genre:___________\n"
+							+ "1: Rock    "
+							+ "3: Hip-Hop\n"
+							+ "2: Pop     "
+							+ "4: Bossa Nova\n");
+			String newSongName;String newArtist;String newDuration;String newGenre;int genre;int duration;
+			System.out.println("Name: ");
+			newSongName = console.nextLine();
+			System.out.println("Artist: ");
+			newArtist = console.nextLine();
+			System.out.println("Duration (s): ");
+			newDuration = console.nextLine();
+			System.out.print(genreMenu);
+			newGenre = console.nextLine();
+
+			genre = Integer.parseInt(newGenre);
+			duration = Integer.parseInt(newDuration);
+
 			if(selectedAlbum.getTotalTime()+duration<selectedAlbum.getMaxTime())
 			{
+				System.out.println(newSongName + newArtist + duration);
+
 				if(selectedAlbum.song1.songMatches(newSongName,newArtist,duration) || selectedAlbum.song2.songMatches(newSongName,newArtist,duration) ||
-						selectedAlbum.song3.songMatches(newSongName,newArtist,duration) || selectedAlbum.song4.songMatches(newSongName,newArtist,duration)){
+						selectedAlbum.song3.songMatches(newSongName,newArtist,duration) || selectedAlbum.song4.songMatches(newSongName,newArtist,duration))
+				{
 					System.out.println("Song already exists.");
 				}
 				else{

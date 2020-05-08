@@ -1,4 +1,4 @@
-/* 
+/*
 Stores variables for individual song objects
 Authors: Xavier Williams (C3329774), Riley Lane (C)
 Last Edited: 08/05/2020
@@ -60,7 +60,7 @@ public class Song {
 
 	// CHECK SOMETHING IDK EXACTLY
 	public boolean songMatches(String newSongName, String newArtist, int newDuration) {
-		if (newSongName == name && newArtist == artist && newDuration == duration) {
+		if (newSongName.equals(name) && newArtist.equals(artist) && newDuration == duration) {
 			return true;
 		} else {
 			return false;
