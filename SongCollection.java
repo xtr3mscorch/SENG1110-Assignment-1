@@ -1,6 +1,5 @@
 import java.util.*;
 /*
-DescriptionX
 Authors: Xavier Williams (C3329774), Riley Lane (C)
 Last Edited: 08/05/2020
 */
@@ -17,10 +16,14 @@ public class SongCollection {
 		sg.run();
 	}
 
-	// MAIN MENU METHOD
-	// WHILE LOOP MAKES PROGRAM ALWAYS RETURN TO MAIN MENU UNTIL exit VALUE IS SET TO 1, WHEN USER REQUESTS TO EXIT
+	/// <summary>
+	/// Displays main menu
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	public void run() {
 		initialiseAlbums();
+		// WHILE LOOP MAKES PROGRAM ALWAYS RETURN TO MAIN MENU UNTIL exit VALUE IS SET TO 1, WHEN USER REQUESTS TO EXIT
 		while(exit==0) {
 			String mainMenu = (
 					"________________________________\n"
@@ -57,8 +60,11 @@ public class SongCollection {
 	/////////////////////////////////////////User Input Functions////////////////////////////////////////////
 
 
-	//#####################################################################//
-	///////////////////////// SEARCH MENU ///////////////////////////////////
+	/// <summary>
+	/// Displays search menu and prompts user for input
+	/// </summary>
+	/// <param name="param"></param>
+	/// <returns></returns>
 	void searchMenu() {
 		String mainMenu = (
 				"__________________________________\n"
@@ -77,24 +83,36 @@ public class SongCollection {
 		switch (Integer.parseInt(input)) {
 			case 1:
 				// DISPLAYS GENRE OPTIONS AND CALLS genreSearch METHOD WITH USERS INPUT VALUE
-				System.out.println("________________________________________");
-				System.out.println("___________ Search by genre: ___________");
-				System.out.println("1: Rock");
-				System.out.println("2: Pop");
-				System.out.println("3: Hip-Hop");
-				System.out.println("4: Bossa Nova");
-				System.out.println("_____________________\n");
-				System.out.println("5: Exit program");
-				genreSearch(Integer.parseInt(console.nextLine()));
+				if (albumCount==0){
+					System.out.println("No albums to search, please add an album.");
+				} else {
+					System.out.println("________________________________________");
+					System.out.println("___________ Search by genre: ___________");
+					System.out.println("1: Rock");
+					System.out.println("2: Pop");
+					System.out.println("3: Hip-Hop");
+					System.out.println("4: Bossa Nova");
+					System.out.println("_____________________\n");
+					System.out.println("5: Exit program");
+					genreSearch(Integer.parseInt(console.nextLine()));
+				}
 				break;
 			case 2:
 				// CALLS durationSearch METHOD WITH USERS INPUT VALUE
-				System.out.println("____________________________________________________________");
-				System.out.println("________ Search by duration shorter than: (minutes) ________");
-				durationSearch(Integer.parseInt(console.nextLine()));
+				if (albumCount==0){
+					System.out.println("No albums to search, please add an album.");
+				} else {
+					System.out.println("____________________________________________________________");
+					System.out.println("________ Search by duration shorter than: (minutes) ________");
+					durationSearch(Integer.parseInt(console.nextLine()));
+				}
 				break;
 			case 3:
-				viewAllSong();
+				if (albumCount==0){
+					System.out.println("No albums to search, please add an album.");
+				} else {
+					viewAllSong();
+				}
 				break;
 			case 4:
 				break;
@@ -107,38 +125,62 @@ public class SongCollection {
 		}
 	}
 
-	// CHECKS IF ALBUM HAS BEEN MADE THEN
-	void genreSearch(int g){
-	String searchResult="";
-		if(album1.getAlbumName()!="Empty Slot") {
-			searchResult+=album1.listSongsGenre(g);
+	/// <summary>
+	/// Searches all songs for particular genre. Outputs a list of albums and songs.
+	/// </summary>
+	/// <param name="genreID"> Identifier of the genre to search for </param>
+	/// <returns></returns>
+	void genreSearch(int genreID){
+		if (album1.getSongCount()+album2.getSongCount()+album3.getSongCount()==0){
+			System.out.println("No songs available to search.\n");
+		} else
+		{
+			String searchResult = "";
+			if (album1.getAlbumName() != "Empty Slot") {
+				searchResult += album1.listSongsGenre(genreID);
+			}
+			if (album2.getAlbumName() != "Empty Slot") {
+				searchResult += album2.listSongsGenre(genreID);
+			}
+			if (album3.getAlbumName() != "Empty Slot") {
+				searchResult += album3.listSongsGenre(genreID);
+			}
+			System.out.println(searchResult);
 		}
-		if(album2.getAlbumName()!="Empty Slot") {
-			searchResult+=album2.listSongsGenre(g);
-		}
-		if(album3.getAlbumName()!="Empty Slot") {
-			searchResult+=album3.listSongsGenre(g);
-		}
-		System.out.println(searchResult);
 	}
 
-	void durationSearch(int g){
-		String searchResult="";
-		if(album1.getAlbumName()!="Empty Slot") {
-			searchResult+=album1.listSongsDuration(g);
+	/// <summary>
+	/// Searches all songs under particular duration. Outputs a list of albums and songs.
+	/// </summary>
+	/// <param name="durationTime"> Upper limit of song duration </param>
+	/// <returns></returns>
+	void durationSearch(int durationTime){
+		if (album1.getSongCount()+album2.getSongCount()+album3.getSongCount()==0){
+			System.out.println("No songs available to search.\n");
+		} else
+		{
+			String searchResult = "";
+			if (album1.getAlbumName() != "Empty Slot") {
+				searchResult += album1.listSongsDuration(durationTime);
+			}
+			if (album2.getAlbumName() != "Empty Slot") {
+				searchResult += album2.listSongsDuration(durationTime);
+			}
+			if (album3.getAlbumName() != "Empty Slot") {
+				searchResult += album3.listSongsDuration(durationTime);
+			}
+			System.out.println(searchResult);
 		}
-		if(album2.getAlbumName()!="Empty Slot") {
-			searchResult+=album2.listSongsDuration(g);
-		}
-		if(album3.getAlbumName()!="Empty Slot") {
-			searchResult+=album3.listSongsDuration(g);
-		}
-		System.out.println(searchResult);
 	}
 
 	//#####################################################################//
 	///////////////////////// ALBUM OPTIONS MENU ////////////////////////////
-	//gives the user choices such as list songs, add songs and delete songs.
+
+	/// <summary>
+	/// Gives the user choices such as list songs, add songs and delete songs.
+	/// </summary>
+	/// <param name="currentAlbum"> The album object to search within </param>
+	/// <returns></returns>
 	void albumMenu(Album currentAlbum) {
 		System.out.println("___________________________");
 		System.out.println("______Album: " + currentAlbum.getAlbumName() + "_______");
@@ -154,7 +196,7 @@ public class SongCollection {
 			case 1:
 				if (currentAlbum.getSongCount() > 0) {
 					System.out.println(currentAlbum.listSongs(false));
-					System.out.println("----------------" + "\n5: Back");
+					System.out.println("----------------------------");
 					String back = console.nextLine();
 				}
 				else{
@@ -171,8 +213,6 @@ public class SongCollection {
 				albumMenu(currentAlbum);
 				break;
 			case 4:
-				//go back
-				albumView();
 				break;
 			case 5:
 				exit = 1;
@@ -187,13 +227,19 @@ public class SongCollection {
 
 	//#####################################################################//
 	///////////////////////// ALBUM CREATE MENU /////////////////////////////
-	//asks the user for an album name if max album count not reached.
+
+	/// <summary>
+	/// If not full, allows user to create a new album
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	void albumCreate() {
+		// If slots not full
 		if(albumCount<3) {
 			System.out.println("Album name: ");
 
-			//USER INPUT//
 			String newAlbumName = console.nextLine();
+			// Check if album name already exists
 			if (album1.albumNameMatches(newAlbumName) || album2.albumNameMatches(newAlbumName) || album3.albumNameMatches(newAlbumName)) {
 				System.out.println("Album already exists. "); //check if name already exists
 			} else {
@@ -209,10 +255,8 @@ public class SongCollection {
 						album3.setAlbumName(newAlbumName);
 						break;
 				}
-
-				System.out.println(newAlbumName + " has been successfully added");
+				System.out.println(newAlbumName + " has been successfully added.");
 			}
-
 		}
 		else{
 			System.out.println("Album slots are full.");
@@ -221,8 +265,12 @@ public class SongCollection {
 
 	//#####################################################################//
 	///////////////////////// ALBUM VIEW MENU ///////////////////////////////
-	//gives the user a menu to choose an album -> then displays more options
-	//option to delete an album displayed here.
+
+	/// <summary>
+	/// Diplays main album menu
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	void albumView() {
 		if(albumCount > 0) {
 			System.out.println("__________________________");
@@ -241,39 +289,34 @@ public class SongCollection {
 					System.out.println("2: " + album2.getAlbumName());
 					System.out.println("3: " + album3.getAlbumName());
 					break;
-				case 5:
-					System.out.println("helo");
-					break;
 				default:
 					rebootFunction();
 					break;
 			}
-
-			System.out.print("----------------\n4: Delete an album     5: Back\n");
+			System.out.print("----------------\n4: Delete an album\t\t5: Back\n");
 
 			//USER INPUT//
 			String input = console.nextLine();
 			switch (Integer.parseInt(input)) {
 				case 1:
-					//view album 1 menu
 					albumMenu(album1);
 					break;
 				case 2:
 					if (albumCount > 1)
 					{
-						//view album 2 menu
 						albumMenu(album2);
-					}else {
+					}else
+					{
 						rebootFunction();
 					}
 					break;
 				case 3:
 					if (albumCount > 2)
 					{
-						//view album 3 menu
 						albumMenu(album3);
 					}
-					else{
+					else
+					{
 						rebootFunction();
 					}
 					break;
@@ -281,7 +324,6 @@ public class SongCollection {
 					deleteAlbumMenu();
 					break;
 				case 5:
-					//go back
 					break;
 				default:
 					rebootFunction();
@@ -294,7 +336,12 @@ public class SongCollection {
 
 	//#####################################################################//
 	///////////////////////// ALBUM DELETE MENU /////////////////////////////
-	//ask the user to choose an album to delete.
+
+	/// <summary>
+	/// Diplays list of albums to delete
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	void deleteAlbumMenu(){
 		System.out.println("_____________________________________________");
 		System.out.println("___ Which album would you like to delete? ___");
@@ -315,7 +362,6 @@ public class SongCollection {
 				rebootFunction();
 				break;
 		}
-		System.out.println("----------------\n4: Back");
 
 		String input = console.nextLine();
 		switch (Integer.parseInt(input)) {
@@ -355,7 +401,7 @@ public class SongCollection {
 				}
 				break;
 
-				// DELETE ALBUM 3
+			// DELETE ALBUM 3
 			case 3:
 				if (albumCount > 2){
 					deleteAlbum(album3);
@@ -373,18 +419,23 @@ public class SongCollection {
 
 	//#####################################################################//
 	/////////////////////////// CREATE NEW SONG /////////////////////////////
-	//asks the user for 4 inputs. name, artist, genre and duration
-	//checks if under song limit (getSongCount()) < 4
+
+	/// <summary>
+	/// Asks the user for 4 inputs. name, artist, genre and duration
+	/// </summary>
+	/// <param name="selectedAlbum"> The album under which the song is created. </param>
+	/// <returns></returns>
 	void createNewSong(Album selectedAlbum){
+		// Checks if under song limit (getSongCount()) < 4
 		if(selectedAlbum.getSongCount() < 4)
 		{
 			String genreMenu = (
 					"___________________________________\n"
-							+ "___________Select Genre:___________\n"
-							+ "1: Rock    "
-							+ "3: Hip-Hop\n"
-							+ "2: Pop     "
-							+ "4: Bossa Nova\n");
+					+ "___________Select Genre:___________\n"
+					+ "1: Rock\t\t"
+					+ "3: Hip-Hop\n"
+					+ "2: Pop\t\t"
+					+ "4: Bossa Nova\n");
 			String newSongName;String newArtist;String newDuration;String newGenre;int genre;int duration;
 			System.out.println("Name: ");
 			newSongName = console.nextLine();
@@ -398,16 +449,17 @@ public class SongCollection {
 			genre = Integer.parseInt(newGenre);
 			duration = Integer.parseInt(newDuration);
 
+			// Checks if album duration is less than the maximum when song is added.
 			if(selectedAlbum.getTotalTime()+duration<selectedAlbum.getMaxTime())
 			{
-				System.out.println(newSongName + newArtist + duration);
-
+				// Checks if song exists already in album
 				if(selectedAlbum.song1.songMatches(newSongName,newArtist,duration) || selectedAlbum.song2.songMatches(newSongName,newArtist,duration) ||
 						selectedAlbum.song3.songMatches(newSongName,newArtist,duration) || selectedAlbum.song4.songMatches(newSongName,newArtist,duration))
 				{
 					System.out.println("Song already exists.");
 				}
-				else{
+				else
+				{
 					selectedAlbum.setSongCount(selectedAlbum.getSongCount() + 1);
 					switch (selectedAlbum.getSongCount())
 					{
@@ -440,15 +492,21 @@ public class SongCollection {
 
 	//#####################################################################//
 	/////////////////////////// SONG DELETE MENU ///////////////////////////
+
+	/// <summary>
+	/// Displays list of songs to delete.
+	/// </summary>
+	/// <param name="selectedAlbum"> The album under which the song is deleted. </param>
+	/// <returns></returns>
 	void songDeleteMenu(Album selectedAlbum){
 
 		int tempSongCount = selectedAlbum.getSongCount();
-		String tempSongName;
+		String tempSongName="";
 		if (tempSongCount > 0) {
 			System.out.println("____________________________________________");
 			System.out.println("___ Which song would you like to delete? ___");
 			System.out.println(selectedAlbum.listSongs(true));
-			System.out.println("----------------" + "\n5: Back");
+			System.out.println("____________________________________________");
 
 			String input = console.nextLine();
 			switch (Integer.parseInt(input))
@@ -459,7 +517,7 @@ public class SongCollection {
 					switch (tempSongCount){
 						case 1:
 							//if there is only 1 song in the album:
-							deleteSong(selectedAlbum, 1, tempSongName);
+							deleteSong(selectedAlbum, 1);
 							break;
 						case 2:
 							//take data from *song 2* and move it to *song 1* ... *song 2* gets deleted.
@@ -467,7 +525,7 @@ public class SongCollection {
 							selectedAlbum.song1.setArtist(selectedAlbum.song2.getArtist());
 							selectedAlbum.song1.setDuration(selectedAlbum.song2.getDuration());
 							selectedAlbum.song1.setGenre(selectedAlbum.song2.getGenre());
-							deleteSong(selectedAlbum, 2, tempSongName);
+							deleteSong(selectedAlbum, 2);
 							break;
 						case 3:
 							//take data from *song 3* and move it to *song 1* ... *song 3* gets deleted.
@@ -475,7 +533,7 @@ public class SongCollection {
 							selectedAlbum.song1.setArtist(selectedAlbum.song3.getArtist());
 							selectedAlbum.song1.setDuration(selectedAlbum.song3.getDuration());
 							selectedAlbum.song1.setGenre(selectedAlbum.song3.getGenre());
-							deleteSong(selectedAlbum, 3, tempSongName);
+							deleteSong(selectedAlbum, 3);
 							break;
 						case 4:
 							//take data from *song 4* and move it to *song 1* ... *song 4* gets deleted.
@@ -483,7 +541,7 @@ public class SongCollection {
 							selectedAlbum.song1.setArtist(selectedAlbum.song4.getArtist());
 							selectedAlbum.song1.setDuration(selectedAlbum.song4.getDuration());
 							selectedAlbum.song1.setGenre(selectedAlbum.song4.getGenre());
-							deleteSong(selectedAlbum, 4, tempSongName);
+							deleteSong(selectedAlbum, 4);
 							break;
 					}
 					break;
@@ -493,7 +551,7 @@ public class SongCollection {
 					switch (tempSongCount){
 						case 2:
 							//if there are only 2 songs in the album:
-							deleteSong(selectedAlbum, 2, tempSongName);
+							deleteSong(selectedAlbum, 2);
 							break;
 						case 3:
 							//take data from *song 3* and move it to *song 2* ... *song 3* gets deleted.
@@ -501,7 +559,7 @@ public class SongCollection {
 							selectedAlbum.song2.setArtist(selectedAlbum.song3.getArtist());
 							selectedAlbum.song2.setDuration(selectedAlbum.song3.getDuration());
 							selectedAlbum.song2.setGenre(selectedAlbum.song3.getGenre());
-							deleteSong(selectedAlbum, 3, tempSongName);
+							deleteSong(selectedAlbum, 3);
 							break;
 						case 4:
 							//take data from *song 4* and move it to *song 2* ... *song 4* gets deleted.
@@ -509,7 +567,7 @@ public class SongCollection {
 							selectedAlbum.song2.setArtist(selectedAlbum.song4.getArtist());
 							selectedAlbum.song2.setDuration(selectedAlbum.song4.getDuration());
 							selectedAlbum.song2.setGenre(selectedAlbum.song4.getGenre());
-							deleteSong(selectedAlbum, 4, tempSongName);
+							deleteSong(selectedAlbum, 4);
 							break;
 					}
 					break;
@@ -519,7 +577,7 @@ public class SongCollection {
 					switch (tempSongCount){
 						case 3:
 							//if there are only 3 songs in the album:
-							deleteSong(selectedAlbum, 3, tempSongName);
+							deleteSong(selectedAlbum, 3);
 							break;
 						case 4:
 							//take data from *song 4* and move it to *song 3* ... *song 4* gets deleted.
@@ -527,7 +585,7 @@ public class SongCollection {
 							selectedAlbum.song3.setArtist(selectedAlbum.song4.getArtist());
 							selectedAlbum.song3.setDuration(selectedAlbum.song4.getDuration());
 							selectedAlbum.song3.setGenre(selectedAlbum.song4.getGenre());
-							deleteSong(selectedAlbum, 4, tempSongName);
+							deleteSong(selectedAlbum, 4);
 							break;
 					}
 					break;
@@ -537,7 +595,7 @@ public class SongCollection {
 						//delete song 4
 						if (tempSongCount == 4) //if there are 4 songs in the album.
 						{
-							deleteSong(selectedAlbum,4, selectedAlbum.song4.getName());
+							deleteSong(selectedAlbum,4);
 						}
 					}
 					break;
@@ -548,6 +606,7 @@ public class SongCollection {
 					rebootFunction();
 					break;
 			}
+		System.out.println(tempSongName + " deleted successfully");
 		}
 		else{
 			System.out.println("* You have not added any songs yet! *");
@@ -556,25 +615,44 @@ public class SongCollection {
 
 	//###########################################################################//
 	//////////////////////Secondary Functions//////////////////////////////////////
-
 	//These contain no user input
 
-    // Method to view all songs, calls listing method from Album.java
+	/// <summary>
+	/// Displays all songs
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
     void viewAllSong() {
-		if (album1.getAlbumName()!="Empty Slot"){
-			System.out.println(album1.listSongs(false));}
-		if (album2.getAlbumName()!="Empty Slot"){
-			System.out.println(album2.listSongs(false));}
-		if (album3.getAlbumName()!="Empty Slot"){
-			System.out.println(album3.listSongs(false));}
+		// Check if songs have been made
+		if (album1.getSongCount()+album2.getSongCount()+album3.getSongCount()==0) {
+			System.out.println("No songs available to search.\n");
+		} else {
+			if (album1.getAlbumName() != "Empty Slot") {
+				System.out.println(album1.listSongs(false));
+			}
+			if (album2.getAlbumName() != "Empty Slot") {
+				System.out.println(album2.listSongs(false));
+			}
+			if (album3.getAlbumName() != "Empty Slot") {
+				System.out.println(album3.listSongs(false));
+			}
+		}
     }
 
-    //back to main menu with error message.. usually called when invalid input
+	/// <summary>
+	/// Displays error message
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	void rebootFunction() {
 		System.out.println("Invalid input\n");
 	}
 
-	// Initialise new albums... called from run()... only should happen once.
+	/// <summary>
+	/// Initialise album objects
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	void initialiseAlbums() {
 		albumCount = 0;
 		album1 = new Album();
@@ -582,8 +660,15 @@ public class SongCollection {
 		album3 = new Album();
 	}
 
+	/// <summary>
+	/// Deletes song
+	/// </summary>
+	/// <param name="selectedAlbum"> Album where song is deleted </param>
+	/// <param name="selectedSong"> Song being deleted </param>
+	/// <param name="tempName"> </param>
+	/// <returns></returns>
 	//delete song function ... called from "songDeleteMenu()"... resetsSong and reduces songCount value by 1.
-	void deleteSong(Album selectedAlbum, int selectedSong, String tempName)
+	void deleteSong(Album selectedAlbum, int selectedSong)
 	{
 		switch (selectedSong)
 		{
@@ -604,11 +689,13 @@ public class SongCollection {
 				selectedAlbum.setSongCount(selectedAlbum.getSongCount() - 1);
 				break;
 		}
-
-		System.out.println(tempName + " has been successfully deleted from " + selectedAlbum.getAlbumName());
 	}
 
-	//delete album... called from DeleteAlbum()... resets Album name and reduces album count by 1.
+	/// <summary>
+	/// Deletes album
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
 	void deleteAlbum(Album selectedAlbum){
 		String tempName = selectedAlbum.getAlbumName();
 		selectedAlbum.resetAlbum();

@@ -67,7 +67,6 @@ public class Album
     }
 
     // LISTS ALL SONGS OF AN ALBUM THROUGH getName METHOD
-    /////////////////////////////////////////////////////// **ADD SONG DETAILS (artist, duration, genre) its in the marking guideline**
     String listSongs(boolean isDeleting){
         String songList = "";
         if (!isDeleting)
@@ -160,7 +159,6 @@ public class Album
                     songList=songList+"1. " +song1.getName()+"\n";}
                 if (song2.getName()!="Empty song" && song2.getDuration()<duration){
                         songList=songList+"2. " +song2.getName()+"\n";}
-
                 break;
             case 3:
                 if (song1.getName()!="Empty song" && song1.getDuration()<duration){
@@ -180,9 +178,7 @@ public class Album
                 if (song4.getName()!="Empty song" && song4.getDuration()<duration){
                     songList=songList+"4. " +song4.getName()+"\n";}
                 break;
-
         }
-
         return (songList);
     }
 
