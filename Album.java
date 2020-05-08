@@ -72,28 +72,28 @@ public class Album
         String songList = "";
         if (!isDeleting)
         {
-            songList = ("______" + albumName + " Song List:_______\n");
+            songList = ("______ '" + albumName + "' song list: _______\n");
         }
         switch (songCount)
         {
             case 1:
-                songList += "1. " +song1.getName();
+                songList += "1. " +song1.getAllDetails();
 
                 break;
             case 2:
-                songList += "1. " +song1.getName()+ "\n";
-                songList += "2. " +song2.getName();
+                songList += "1. " +song1.getAllDetails()+ "\n";
+                songList += "2. " +song2.getAllDetails();
                 break;
             case 3:
-                songList += "1. " +song1.getName()+ "\n";
-                songList += "2. " +song2.getName()+ "\n";
-                songList += "3. " +song3.getName();
+                songList += "1. " +song1.getAllDetails()+ "\n";
+                songList += "2. " +song2.getAllDetails()+ "\n";
+                songList += "3. " +song3.getAllDetails();
                 break;
             case 4:
-                songList += "1. " +song1.getName()+ "\n";
-                songList += "2. " +song2.getName()+ "\n";
-                songList += "3. " +song3.getName()+ "\n";
-                songList += "4. " +song4.getName();
+                songList += "1. " +song1.getAllDetails()+ "\n";
+                songList += "2. " +song2.getAllDetails()+ "\n";
+                songList += "3. " +song3.getAllDetails()+ "\n";
+                songList += "4. " +song4.getAllDetails();
                 break;
         }
         return songList;

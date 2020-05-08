@@ -13,7 +13,7 @@ public class SongCollection {
 	// MAIN METHOD
 	public static void main(String[] args) {
 		SongCollection sg = new SongCollection();
-		System.out.print("Welcome to Terminal Music \n");
+		System.out.print("    Welcome to Terminal Music \n");
 		sg.run();
 	}
 
@@ -22,7 +22,9 @@ public class SongCollection {
 	public void run() {
 		initialiseAlbums();
 		while(exit==0) {
-			String mainMenu = ("____________Main Menu___________\n"
+			String mainMenu = (
+					"________________________________\n"
+					+ "____________Main Menu___________\n"
 					+ "1: Add album       "
 					+ "3: Song search\n"
 					+ "2: View albums     "
@@ -58,7 +60,9 @@ public class SongCollection {
 	//#####################################################################//
 	///////////////////////// SEARCH MENU ///////////////////////////////////
 	void searchMenu() {
-		String mainMenu = ("___________Search By:___________\n"
+		String mainMenu = (
+				"__________________________________\n"
+				+"___________ Search By: ___________\n"
 				+ "1: Genre       "
 				+ " 3: View all\n"
 				+ "2: Duration     "
@@ -70,7 +74,8 @@ public class SongCollection {
 		switch (Integer.parseInt(input)) {
 			case 1:
 				// DISPLAYS GENRE OPTIONS AND CALLS genreSearch METHOD WITH USERS INPUT VALUE
-				System.out.println("Pick genre blah");
+				System.out.println("________________________________________");
+				System.out.println("___________ Search by genre: ___________");
 				System.out.println("1: Rock");
 				System.out.println("2: Pop");
 				System.out.println("3: Hip-Hop");
@@ -79,7 +84,8 @@ public class SongCollection {
 				break;
 			case 2:
 				// CALLS durationSearch METHOD WITH USERS INPUT VALUE
-				System.out.println("Find songs with duration (s) shorter than: ");
+				System.out.println("______________________________________________________");
+				System.out.println("________ Search by duration shorter than: (s) ________");
 				durationSearch(Integer.parseInt(console.nextLine()));
 				break;
 			case 3:
@@ -126,6 +132,7 @@ public class SongCollection {
 	///////////////////////// ALBUM OPTIONS MENU ////////////////////////////
 	//gives the user choices such as list songs, add songs and delete songs.
 	void albumMenu(Album currentAlbum) {
+		System.out.println("_______________________________");
 		System.out.println("______Album: " + currentAlbum.getAlbumName() + "_______");
 		System.out.println("1: List songs");
 		System.out.println("2: Add song");
@@ -204,7 +211,9 @@ public class SongCollection {
 	//option to delete an album displayed here.
 	void albumView() {
 		if(albumCount > 0) {
-			System.out.println("_________Albums: select one_________");
+			System.out.println("__________________________");
+			System.out.println("_________ Albums _________");
+			System.out.println("Select one to make changes: ");
 			switch (albumCount) { //only display album based on albumCount value
 				case 1:
 					System.out.println("1: " + album1.getAlbumName());
@@ -269,7 +278,8 @@ public class SongCollection {
 	///////////////////////// ALBUM DELETE MENU /////////////////////////////
 	//ask the user to choose an album to delete.
 	void deleteAlbumMenu(){
-		System.out.println("Which album would you like to delete?");
+		System.out.println("_____________________________________________");
+		System.out.println("___ Which album would you like to delete? ___");
 		switch (albumCount) { //only display album based on albumCount value
 			case 1:
 				System.out.println("1: " + album1.getAlbumName());
@@ -348,7 +358,9 @@ public class SongCollection {
 	//asks the user for 4 inputs. name, artist, genre and duration
 	//checks if under song limit (getSongCount()) < 4
 	void createNewSong(Album selectedAlbum){
-		String genreMenu = ("___________Select Genre:___________\n"
+		String genreMenu = (
+				"___________________________________\n"
+				+ "___________Select Genre:___________\n"
 				+ "1: Rock    "
 				+ "3: Hip-Hop\n"
 				+ "2: Pop     "
@@ -412,7 +424,8 @@ public class SongCollection {
 		int tempSongCount = selectedAlbum.getSongCount();
 		String tempSongName;
 		if (tempSongCount > 0) {
-			System.out.println("Which song would you like to delete?");
+			System.out.println("____________________________________________");
+			System.out.println("___ Which song would you like to delete? ___");
 			System.out.println(selectedAlbum.listSongs(true));
 			System.out.println("----------------" + "\n5: Back");
 
@@ -516,7 +529,7 @@ public class SongCollection {
 			}
 		}
 		else{
-			System.out.println("You have not added any songs.");
+			System.out.println("* You have not added any songs yet! *");
 		}
 	}
 
