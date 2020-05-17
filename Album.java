@@ -12,6 +12,9 @@ public class Album
     private int totalTime,songCount;
     private final int MAX_TIME = 720; //12 minutes
 
+    final int MAX_SONGS = 5;
+    Song songs[] = new Song[MAX_SONGS];
+
     // ALBUM CONSTRUCTOR
     public Album()
     {
@@ -60,10 +63,19 @@ public class Album
 
     // INITIALISE SONGS
     private void initialiseSongs() {
+        for (int i = 0;i<songs.length;i++)
+        {
+            songs[i] = new Song();
+        }
+
+
+        /*
         song1 = new Song();
         song2 = new Song();
         song3 = new Song();
         song4 = new Song();
+
+         */
     }
 
     // LISTS ALL SONGS OF AN ALBUM THROUGH getName METHOD

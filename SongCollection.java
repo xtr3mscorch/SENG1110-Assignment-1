@@ -8,6 +8,8 @@ public class SongCollection {
 	private Album album1, album2, album3;
 	Scanner console = new Scanner(System.in);
 	int albumCount=0,exit=0;
+	final int MAX_ALBUMS = 4;
+	Album albums[] = new Album[MAX_ALBUMS];
 
 	// MAIN METHOD
 	public static void main(String[] args) {
@@ -23,6 +25,7 @@ public class SongCollection {
 	/// <returns></returns>
 	public void run() {
 		initialiseAlbums();
+
 		// WHILE LOOP MAKES PROGRAM ALWAYS RETURN TO MAIN MENU UNTIL exit VALUE IS SET TO 1, WHEN USER REQUESTS TO EXIT
 		while(exit==0) {
 			String mainMenu = (
@@ -654,10 +657,17 @@ public class SongCollection {
 	/// <param name=""></param>
 	/// <returns></returns>
 	void initialiseAlbums() {
+		for (int i = 0; i<albums.length;i++)
+		{
+			albums[i] = new Album();
+		}
+		/*
 		albumCount = 0;
 		album1 = new Album();
 		album2 = new Album();
 		album3 = new Album();
+
+		 */
 	}
 
 	/// <summary>
