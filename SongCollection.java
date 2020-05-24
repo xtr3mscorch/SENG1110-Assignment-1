@@ -237,6 +237,29 @@ public class SongCollection {
 	/// <param name=""></param>
 	/// <returns></returns>
 	void albumCreate() {
+
+		if (albumCount < MAX_ALBUMS)
+		{
+			for (int i = 0; i<albums.length;i++)
+			{
+				if (albums[i].getAlbumName() == "Empty Slot")
+				{
+					System.out.println("overwriting slot " + i);
+					System.out.println("Album name: ");
+					String newAlbumName = console.nextLine();
+					// Check if album name already exists
+					albums[i].setAlbumName(newAlbumName);
+					System.out.println(newAlbumName + " has been successfully added.");
+					albumCount += 1;
+					break;
+				}
+			}
+		}
+		else{
+			System.out.println("Album slots are full.");
+		}
+
+		/*
 		// If slots not full
 		if(albumCount<3) {
 			System.out.println("Album name: ");
@@ -264,13 +287,15 @@ public class SongCollection {
 		else{
 			System.out.println("Album slots are full.");
 		}
+
+		 */
 	}
 
 	//#####################################################################//
 	///////////////////////// ALBUM VIEW MENU ///////////////////////////////
 
 	/// <summary>
-	/// Diplays main album menu
+	/// Displays main album menu
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
