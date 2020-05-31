@@ -248,9 +248,14 @@ public class SongCollection {
 					System.out.println("Album name: ");
 					String newAlbumName = console.nextLine();
 					// Check if album name already exists
-					albums[i].setAlbumName(newAlbumName);
-					System.out.println(newAlbumName + " has been successfully added.");
-					albumCount += 1;
+					if (!albumCheckName(newAlbumName)) {
+						albums[i].setAlbumName(newAlbumName);
+						System.out.println(newAlbumName + " has been successfully added.");
+						albumCount += 1;
+					}
+					else{
+						System.out.println("Album already exists. ");
+					}
 					break;
 				}
 			}
@@ -300,6 +305,39 @@ public class SongCollection {
 	/// <param name=""></param>
 	/// <returns></returns>
 	void albumView() {
+		if (albumCount > 0)
+		{
+			System.out.println("__________________________");
+			System.out.println("_________ Albums _________");
+			System.out.println("Select one to make changes: ");
+
+			for (int i = 0; i < albums.length; i++)
+			{
+				if (albums[i].getAlbumName() != "Empty Slot")
+				{
+					System.out.println((i + 1) + ": " + albums[i].getAlbumName());
+				}
+			}
+
+			System.out.print("----------------\n4: Delete an album\t\t5: Back\n");
+
+			String input = console.nextLine();
+
+			if (Integer.parseInt(input) > albumCount)
+			{
+				rebootFunction();
+			}
+			else{
+				System.out.println("displaying info of " + albums[Integer.parseInt(input) - 1].getAlbumName());
+				//albumMenu(albums[Integer.parseInt(input) - 1]);
+			}
+
+		}
+		else{
+			System.out.print("You have not added any albums!\n");
+		}
+
+		/*
 		if(albumCount > 0) {
 			System.out.println("__________________________");
 			System.out.println("_________ Albums _________");
@@ -360,13 +398,15 @@ public class SongCollection {
 		else{
 			System.out.print("You have not added any albums!\n");
 		}
+
+		 */
 	}
 
 	//#####################################################################//
 	///////////////////////// ALBUM DELETE MENU /////////////////////////////
 
 	/// <summary>
-	/// Diplays list of albums to delete
+	/// Displays list of albums to delete
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
@@ -819,6 +859,21 @@ public class SongCollection {
 		albumCount -= 1;
 		System.out.println(tempName + " has been successfully deleted");
 		albumView();
+	}
+
+	boolean albumCheckName(String newName){
+		for (int i = 0; i < albums.length; i++)
+		{
+			if (albums[i].albumNameMatches(newName))
+			{
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
+
 	}
 
 	//###########################################################################//
