@@ -1,6 +1,6 @@
 import java.util.*;
 /*
-Authors: Xavier Williams (C3329774), Riley Lane (C)
+Authors: Xavier Williams (C3329774), Riley Lane (C3339143)
 Last Edited: 08/05/2020
 */
 
@@ -184,7 +184,49 @@ public class SongCollection {
 	/// </summary>
 	/// <param name="currentAlbum"> The album object to search within </param>
 	/// <returns></returns>
-	void albumMenu(Album currentAlbum) {
+	void albumMenu(int currentAlbum) {
+		System.out.println("___________________________");
+		System.out.println("______Album: " + albums[currentAlbum].getAlbumName() + "_______");
+		System.out.println("1: List songs");
+		System.out.println("2: Add song");
+		System.out.println("3: Delete song");
+		System.out.println("______________________________\n");
+		System.out.println("4: Back       5: Exit program");
+
+		//USER INPUT//
+		String input = console.nextLine();
+		switch (Integer.parseInt(input)) {
+			case 1:
+				if (albums[currentAlbum].getSongCount() > 0) {
+					System.out.println(albums[currentAlbum].listSongs(false));
+					System.out.println("----------------------------");
+					String back = console.nextLine();
+				}
+				else{
+					System.out.println("You have not added any songs.");
+				}
+				albumMenu(currentAlbum);
+				break;
+			case 2:
+				createNewSong(albums[currentAlbum]);
+				albumMenu(currentAlbum);
+				break;
+			case 3:
+				songDeleteMenu(albums[currentAlbum]);
+				albumMenu(currentAlbum);
+				break;
+			case 4:
+				break;
+			case 5:
+				exit = 1;
+				break;
+			default:
+				rebootFunction();
+				break;
+		}
+
+
+		/*
 		System.out.println("___________________________");
 		System.out.println("______Album: " + currentAlbum.getAlbumName() + "_______");
 		System.out.println("1: List songs");
@@ -224,6 +266,8 @@ public class SongCollection {
 				rebootFunction();
 				break;
 		}
+
+		 */
 	}
 
 
@@ -319,17 +363,28 @@ public class SongCollection {
 				}
 			}
 
-			System.out.print("----------------\n4: Delete an album\t\t5: Back\n");
+			System.out.print("----------------\n5: Delete an album\t\t6: Back\n");
 
 			String input = console.nextLine();
 
+
 			if (Integer.parseInt(input) > albumCount)
 			{
-				rebootFunction();
+				if (Integer.parseInt(input) == 5)
+				{
+					deleteAlbumMenu();
+				}
+				else if (Integer.parseInt(input) == 6)
+				{
+					//break;
+				}
+				else{
+					rebootFunction();
+				}
 			}
 			else{
 				System.out.println("displaying info of " + albums[Integer.parseInt(input) - 1].getAlbumName());
-				//albumMenu(albums[Integer.parseInt(input) - 1]);
+				albumMenu(Integer.parseInt(input) - 1);
 			}
 
 		}
@@ -413,6 +468,23 @@ public class SongCollection {
 	void deleteAlbumMenu(){
 		System.out.println("_____________________________________________");
 		System.out.println("___ Which album would you like to delete? ___");
+		for (int i = 0; i < albums.length; i++)
+		{
+			if (albums[i].getAlbumName() != "Empty Slot")
+			{
+				System.out.println(i + 1 + ": " + albums[i].getAlbumName());
+			}
+		}
+
+		String input = console.nextLine();
+		deleteAlbum(Integer.parseInt(input) - 1);
+		}
+
+
+
+		/*
+		System.out.println("_____________________________________________");
+		System.out.println("___ Which album would you like to delete? ___");
 		switch (albumCount) { //only display album based on albumCount value
 			case 1:
 				System.out.println("1: " + album1.getAlbumName());
@@ -483,7 +555,9 @@ public class SongCollection {
 				rebootFunction();
 				break;
 		}
-	}
+
+		 */
+
 
 	//#####################################################################//
 	/////////////////////////// CREATE NEW SONG /////////////////////////////
@@ -771,9 +845,10 @@ public class SongCollection {
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	void deleteAlbum(Album selectedAlbum){
-		String tempName = selectedAlbum.getAlbumName();
-		selectedAlbum.resetAlbum();
+	void deleteAlbum(int selectedAlbum){
+
+		String tempName = albums[selectedAlbum].getAlbumName();
+		albums[selectedAlbum].resetAlbum();
 		albumCount -= 1;
 		System.out.println(tempName + " has been successfully deleted");
 		if(albumCount > 0) {

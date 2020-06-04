@@ -1,6 +1,6 @@
 /*
 Stores variables for individual album objects
-Authors: Xavier Williams (C3329774), Riley Lane (C)
+Authors: Xavier Williams (C3329774), Riley Lane (C3339143)
 Last Edited: 08/05/2020
 */
 
@@ -197,10 +197,11 @@ public class Album
     // DELETE ALBUM METHOD CALLS resetSong() METHOD FOR EACH SONG OF ALBUM
     public void resetAlbum(){
         setAlbumName(defaultName);
-        song1.resetSong();
-        song2.resetSong();
-        song3.resetSong();
-        song4.resetSong();
+
+        for (int i = 0;i<songs.length;i++)
+        {
+            songs[i].resetSong();
+        }
         songCount = 0;
     }
 

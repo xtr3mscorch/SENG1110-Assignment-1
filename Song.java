@@ -1,6 +1,6 @@
 /*
 Stores variables for individual song objects
-Authors: Xavier Williams (C3329774), Riley Lane (C)
+Authors: Xavier Williams (C3329774), Riley Lane (C3339143)
 Last Edited: 08/05/2020
 */
 
