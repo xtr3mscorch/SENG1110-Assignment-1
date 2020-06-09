@@ -81,6 +81,10 @@ public class Album
     // LISTS ALL SONGS OF AN ALBUM THROUGH getName METHOD
     String listSongs(boolean isDeleting){
         String songList = "";
+        for (int i=0;i<songCount;i++){
+            songList+=songs[i].getAllDetails();
+        }
+        /*
         if (!isDeleting)
         {
             songList = ("______ '" + albumName + "' song list: _______\n");
@@ -107,6 +111,7 @@ public class Album
                 songList += "4. " +song4.getAllDetails();
                 break;
         }
+         */
         return songList;
     }
 
@@ -214,5 +219,53 @@ public class Album
         } else {
             return false;
             }
+    }
+
+    void createNewSong(String newSongName,String newArtist,int duration,int genre){
+        // Checks if under song limit (getSongCount()) < 4
+        if(getSongCount() < 4)
+        {
+            // Checks if album duration is less than the maximum when song is added.
+            if(getTotalTime()+duration<getMaxTime())
+            {
+                // Checks if song exists already in album
+                if(songs[0].songMatches(newSongName,newArtist,duration) || songs[1].songMatches(newSongName,newArtist,duration) ||
+                        songs[2].songMatches(newSongName,newArtist,duration) || songs[3].songMatches(newSongName,newArtist,duration) ||
+                        songs[4].songMatches(newSongName,newArtist,duration))
+                {
+                    System.out.println("Song already exists.");
+                }
+                else
+                {
+                    setSongCount(getSongCount() + 1);
+                    switch (getSongCount())
+                    {
+                        case 1:
+                            songs[0].create(newSongName,newArtist,duration,genre);
+                            break;
+                        case 2:
+                            songs[1].create(newSongName,newArtist,duration,genre);
+                            break;
+                        case 3:
+                            songs[2].create(newSongName,newArtist,duration,genre);
+                            break;
+                        case 4:
+                            songs[3].create(newSongName,newArtist,duration,genre);
+                            break;
+                        case 5:
+                            songs[4].create(newSongName,newArtist,duration,genre);
+                    }
+                    setTotalTime(getTotalTime() + duration);
+
+                    System.out.println(newSongName + " has been added to " + getAlbumName());
+                }
+            }
+            else{
+                System.out.println("Failed to create song, duration of album exceeds limit.");
+            }
+
+        }else{
+            System.out.println("Failed to create song, album is full. Please delete a song.");
+        }
     }
 }

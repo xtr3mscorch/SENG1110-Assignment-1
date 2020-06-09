@@ -85,6 +85,7 @@ public class Song {
 		setGenre(newGenre);
 	}
 
+	// CONVERTS GENRE NUMBER TO TEXT
 	public String getGenreName() {
 		String genreName = "";
 		switch (getGenre()) {
