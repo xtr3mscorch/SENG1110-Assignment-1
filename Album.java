@@ -37,7 +37,7 @@ public class Album
 
     // SET SONG COUNT VALUE
     public void setSongCount(int newSongCount){
-        songCount = newSongCount;
+            songCount = newSongCount;
     }
 
     // RETURN SONG COUNT VALUE
@@ -81,37 +81,16 @@ public class Album
     // LISTS ALL SONGS OF AN ALBUM THROUGH getName METHOD
     String listSongs(boolean isDeleting){
         String songList = "";
-        for (int i=0;i<songCount;i++){
-            songList+=songs[i].getAllDetails();
+        for (int i=0;i<songs.length;i++){
+            if (songs[i].getName() != "Empty song") {
+                if (!isDeleting) {
+                    songList += songs[i].getAllDetails();
+                } else {
+                    songList += i + 1 + ": ";
+                    songList += songs[i].getName() + "\n";
+                }
+            }
         }
-        /*
-        if (!isDeleting)
-        {
-            songList = ("______ '" + albumName + "' song list: _______\n");
-        }
-        switch (songCount)
-        {
-            case 1:
-                songList += "1. " +song1.getAllDetails();
-
-                break;
-            case 2:
-                songList += "1. " +song1.getAllDetails()+ "\n";
-                songList += "2. " +song2.getAllDetails();
-                break;
-            case 3:
-                songList += "1. " +song1.getAllDetails()+ "\n";
-                songList += "2. " +song2.getAllDetails()+ "\n";
-                songList += "3. " +song3.getAllDetails();
-                break;
-            case 4:
-                songList += "1. " +song1.getAllDetails()+ "\n";
-                songList += "2. " +song2.getAllDetails()+ "\n";
-                songList += "3. " +song3.getAllDetails()+ "\n";
-                songList += "4. " +song4.getAllDetails();
-                break;
-        }
-         */
         return songList;
     }
 
@@ -238,6 +217,21 @@ public class Album
                 else
                 {
                     setSongCount(getSongCount() + 1);
+
+                    for (int i = 0; i < songs.length; i++)
+                    {
+                        if (songs[i].getName().matches("Empty song")){
+                            songs[i].create(newSongName,newArtist,duration,genre);
+                            System.out.println("overwriting song slot " + i);
+                            break;
+                        }
+
+                    }
+
+
+
+                    /*
+                    setSongCount(getSongCount() + 1);
                     switch (getSongCount())
                     {
                         case 1:
@@ -255,6 +249,8 @@ public class Album
                         case 5:
                             songs[4].create(newSongName,newArtist,duration,genre);
                     }
+
+                     */
                     setTotalTime(getTotalTime() + duration);
 
                     System.out.println(newSongName + " has been added to " + getAlbumName());

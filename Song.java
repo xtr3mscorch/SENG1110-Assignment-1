@@ -20,7 +20,7 @@ public class Song {
 
 	// RETURN SONG NAME
 	public String getName() {
-		return name;
+		return (name);
 	}
 
 	// SET SONG ARTIST
