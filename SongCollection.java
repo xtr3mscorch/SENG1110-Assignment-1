@@ -35,7 +35,9 @@ public class SongCollection {
 					+ "1: Add album       "
 					+ "3: Song search\n"
 					+ "2: View albums     "
-					+ "4: Exit program\n");
+					+ "4: Import album\n")
+					+ "________________________________\n"
+					+ "5: Exit program\n";
 			System.out.print(mainMenu);
 
 			// USER INPUT TO SELECT MENU OPTION
@@ -53,10 +55,11 @@ public class SongCollection {
 					searchMenu();
 					break;
 				case 4:
-					exit=1;
+					importAlbum();
 					break;
 				case 5:
-					importAlbum();
+					exit=1;
+					break;
 				default:
 					rebootFunction();
 					break;
@@ -80,10 +83,11 @@ public class SongCollection {
 				+ "1: Genre       "
 				+ " 3: View all\n"
 				+ "2: Duration     "
-				+ "4: Back\n")
+				+ "4: Name\n")
+				+ "5: Back"
 				+ "\n"
 				+ "_____________________\n"
-				+ "5: Exit program\n";
+				+ "6: Exit program\n";
 		System.out.print(mainMenu);
 
 		// USER INPUT TO SELECT MENU OPTION
@@ -123,8 +127,17 @@ public class SongCollection {
 				}
 				break;
 			case 4:
+				if (albumCount==0){
+					System.out.println("No albums to search, please add an album.");
+				} else {
+					System.out.println("______________________________________");
+					System.out.println("________ Search by song name: ________");
+					nameSearch(console.nextLine());
+				}
 				break;
 			case 5:
+				break;
+			case 6:
 				exit = 1;
 				break;
 			default:
@@ -139,19 +152,15 @@ public class SongCollection {
 	/// <param name="genreID"> Identifier of the genre to search for </param>
 	/// <returns></returns>
 	void genreSearch(int genreID){
-		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()==0){
+		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()+albums[3].getSongCount()==0){
 			System.out.println("No songs available to search.\n");
 		} else
 		{
 			String searchResult = "";
-			if (albums[0].getAlbumName() != "Empty Slot") {
-				searchResult += albums[0].listSongsGenre(genreID);
-			}
-			if (albums[1].getAlbumName() != "Empty Slot") {
-				searchResult += albums[1].listSongsGenre(genreID);
-			}
-			if (albums[2].getAlbumName() != "Empty Slot") {
-				searchResult += albums[2].listSongsGenre(genreID);
+			for (int i=0;i<albums.length;i++){
+				if (albums[i].getAlbumName()!="Empty Slot"){
+					searchResult += albums[i].listSongsGenre(genreID);
+				}
 			}
 			System.out.println(searchResult);
 		}
@@ -163,24 +172,33 @@ public class SongCollection {
 	/// <param name="durationTime"> Upper limit of song duration </param>
 	/// <returns></returns>
 	void durationSearch(int durationTime){
-		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()==0){
+		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()+albums[3].getSongCount()==0){
 			System.out.println("No songs available to search.\n");
 		} else
 		{
 			String searchResult = "";
-			if (albums[0].getAlbumName() != "Empty Slot") {
-				searchResult += albums[0].listSongsDuration(durationTime);
-			}
-			if (albums[1].getAlbumName() != "Empty Slot") {
-				searchResult += albums[1].listSongsDuration(durationTime);
-			}
-			if (albums[2].getAlbumName() != "Empty Slot") {
-				searchResult += albums[2].listSongsDuration(durationTime);
+			for (int i=0;i<albums.length;i++){
+				if (albums[i].getAlbumName() != "Empty Slot"){
+					searchResult += albums[i].listSongsDuration(durationTime);
+				}
 			}
 			System.out.println(searchResult);
 		}
 	}
 
+	void nameSearch(String name){
+		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()+albums[3].getSongCount()==0){
+			System.out.println("No songs available to search.\n");
+		} else {
+			String searchResult = "";
+			for (int i=0;i<albums.length;i++){
+				if (albums[i].getAlbumName() != "Empty Slot"){
+					searchResult += albums[i].listSongsName(name);
+				}
+			}
+			System.out.println(searchResult);
+		}
+	}
 	//#####################################################################//
 	///////////////////////// ALBUM OPTIONS MENU ////////////////////////////
 
@@ -362,7 +380,7 @@ public class SongCollection {
 	/// <returns></returns>
 	void createNewSong(Album selectedAlbum) {
 		// Checks if under song limit (getSongCount()) < 4
-		if (selectedAlbum.getSongCount() < 4) {
+		if (selectedAlbum.getSongCount() <= 5) {
 			String genreMenu = (
 					"___________________________________\n"
 							+ "___________Select Genre:___________\n"
@@ -378,61 +396,46 @@ public class SongCollection {
 			int duration;
 			System.out.println("Name: ");
 			newSongName = console.nextLine();
-			System.out.println("Artist: ");
-			newArtist = console.nextLine();
-			System.out.println("Duration (s): ");
-			newDuration = console.nextLine();
-			System.out.print(genreMenu);
-			newGenre = console.nextLine();
-
-			genre = Integer.parseInt(newGenre);
-			duration = Integer.parseInt(newDuration);
-			if (genre>0 && genre<5) {
-				selectedAlbum.createNewSong(newSongName, newArtist, duration, genre);
-			} else {
-				System.out.println("Invalid genre selection, please create again.");
-			}
-			/*
-			// Checks if album duration is less than the maximum when song is added.
-			if(selectedAlbum.getTotalTime()+duration<selectedAlbum.getMaxTime())
+			if (sameName(newSongName).equals("Y") || sameName(newSongName).equals(""))
 			{
-				// Checks if song exists already in album
-				if(selectedAlbum.song1.songMatches(newSongName,newArtist,duration) || selectedAlbum.song2.songMatches(newSongName,newArtist,duration) ||
-						selectedAlbum.song3.songMatches(newSongName,newArtist,duration) || selectedAlbum.song4.songMatches(newSongName,newArtist,duration))
-				{
-					System.out.println("Song already exists.");
-				}
-				else
-				{
-					selectedAlbum.setSongCount(selectedAlbum.getSongCount() + 1);
-					switch (selectedAlbum.getSongCount())
-					{
-						case 1:
-							selectedAlbum.song1.create(newSongName,newArtist,duration,genre);
-							break;
-						case 2:
-							selectedAlbum.song2.create(newSongName,newArtist,duration,genre);
-							break;
-						case 3:
-							selectedAlbum.song3.create(newSongName,newArtist,duration,genre);
-							break;
-						case 4:
-							selectedAlbum.song4.create(newSongName,newArtist,duration,genre);
-							break;
-					}
-					selectedAlbum.setTotalTime(selectedAlbum.getTotalTime() + duration);
+				System.out.println("Artist: ");
+				newArtist = console.nextLine();
+				System.out.println("Duration (s): ");
+				newDuration = console.nextLine();
+				System.out.print(genreMenu);
+				newGenre = console.nextLine();
 
-					System.out.println(newSongName + " has been added to " + selectedAlbum.getAlbumName());
-				}
-			}
-			else{
-				System.out.println("Failed to create song, duration of album exceeds limit.");
-			}
+				genre = Integer.parseInt(newGenre);
+				duration = Integer.parseInt(newDuration);
 
-		}else{
-			System.out.println("Failed to create song, album is full. Please delete a song.");
-		} */
+				if (genre > 0 && genre < 5) {
+					selectedAlbum.createNewSong(newSongName, newArtist, duration, genre);
+				} else {
+					System.out.println("Invalid genre selection, please create again.");
+				}
+			} else {
+				System.out.println("Song creation cancelled");
+			}
+		} else {
+			System.out.println("Error: Album is full");
 		}
+	}
+
+	String sameName(String songName){
+		String userInput = "";
+		String searchResult = "";
+		for (int i=0;i<albums.length;i++){
+			if (albums[i].getAlbumName() != "Empty Slot"){
+				searchResult += albums[i].songNameMatch(songName);
+			}
+		}
+		if (!searchResult.equals("")){
+			System.out.println("Song(s) with the same name: ");
+			System.out.println(searchResult);
+			System.out.println("Would you like to continue? (Y/N): ");
+			userInput = console.nextLine();
+		}
+		return userInput;
 	}
 
 	//#####################################################################//
@@ -631,8 +634,26 @@ public class SongCollection {
 				currentLine = inputStream.nextLine();
 				String duration = currentLine.substring(currentLine.indexOf(" ")+1,currentLine.length());
 				currentLine = inputStream.nextLine();
-				String genre = "1";
-				albums[currentAlbumIndex].createNewSong(name,artist,Integer.parseInt(duration),Integer.parseInt(genre));
+				//String genre = "1";
+				String genre = currentLine.substring(currentLine.indexOf(" ")+1,currentLine.length());
+
+				// GENRE SCANNER
+				int genreID=0;
+				switch (genre){
+					case "rock":
+						genreID = 1;
+						break;
+					case "pop":
+						genreID = 2;
+						break;
+					case "hip-hop":
+						genreID = 3;
+						break;
+					case "bossa nova":
+						genreID = 4;
+						break;
+				}
+				albums[currentAlbumIndex].createNewSong(name,artist,Integer.parseInt(duration),genreID);
 			}
 		}
 	}

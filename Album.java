@@ -95,7 +95,7 @@ public class Album
     }
 
     // USES IF STATEMENTS TO CHECK IF EACH SONG MATCHES THE SELECTED GENRE AND ADDS TO STRING IF TRUE
-    String listSongsGenre(int genre){
+    /* String listSongsGenre(int genre){
         String songList = "";
         if (songs[0].getGenre()==genre || songs[1].getGenre()==genre || songs[2].getGenre()==genre || songs[3].getGenre()==genre)
         {
@@ -134,6 +134,19 @@ public class Album
         }
         return songList;
     }
+    */
+
+    String listSongsGenre(int genre){
+        String songList = " ";
+        songList += ("______ '" + name + "'  _______\n");
+
+        for (int i=0;i<songs.length;i++){
+            if (songs[i].getGenre()==genre){
+                songList += songs[i].getAllDetails()+"\n";
+            }
+        }
+        return songList;
+    }
 
     // USES IF STATEMENTS TO CHECK IF EACH SONG IS UNDER INPUT DURATION AND ADDS TO STRING IS TRUE
     String listSongsDuration(int durationMinute){
@@ -141,20 +154,22 @@ public class Album
         String songList = "";
         songList += ("______ '" + name + "'  _______\n");
 
-        if (songs[0].getDuration()<duration && songs[0].getDuration()!=0){
-            songList += songs[0].getAllDetails()+"\n";
+        for (int i=0;i<songs.length;i++){
+            if (songs[i].getDuration()<duration && songs[i].getDuration()!=0) {
+                songList += songs[i].getAllDetails()+"\n";
+            }
         }
-        if (songs[1].getDuration()<duration && songs[1].getDuration()!=0){
-            songList += songs[1].getAllDetails()+"\n";
-        }
-        if (songs[2].getDuration()<duration && songs[2].getDuration()!=0){
-            songList += songs[2].getAllDetails()+"\n";
-        }
-        if (songs[3].getDuration()<duration && songs[3].getDuration()!=0){
-            songList += songs[3].getAllDetails()+"\n";
-        }
-        if (songs[4].getDuration()<duration && songs[4].getDuration()!=0){
-            songList += songs[4].getAllDetails()+"\n";
+        return songList;
+    }
+
+    String listSongsName(String songName){
+        String songList = "";
+        songList += ("______ '" + name + "'  _______\n");
+
+        for (int i=0;i<songs.length;i++){
+            if (songs[i].getName().equals(songName)) {
+                songList += songs[i].getAllDetails()+"\n";
+            }
         }
         return songList;
     }
@@ -208,30 +223,6 @@ public class Album
                         }
 
                     }
-
-
-
-                    /*
-                    setSongCount(getSongCount() + 1);
-                    switch (getSongCount())
-                    {
-                        case 1:
-                            songs[0].create(newSongName,newArtist,duration,genre);
-                            break;
-                        case 2:
-                            songs[1].create(newSongName,newArtist,duration,genre);
-                            break;
-                        case 3:
-                            songs[2].create(newSongName,newArtist,duration,genre);
-                            break;
-                        case 4:
-                            songs[3].create(newSongName,newArtist,duration,genre);
-                            break;
-                        case 5:
-                            songs[4].create(newSongName,newArtist,duration,genre);
-                    }
-
-                     */
                     setTotalTime(getTotalTime() + duration);
 
                     System.out.println(newSongName + " has been added to " + getAlbumName());
@@ -244,5 +235,17 @@ public class Album
         }else{
             System.out.println("Failed to create song, album is full. Please delete a song.");
         }
+    }
+
+    String songNameMatch(String songName){
+        String songList = "";
+
+        for (int i=0;i<songs.length;i++){
+            if (songs[i].getName().equals(songName)){
+                songList += ("______ '" + name + "'  _______\n");
+                songList += songs[i].getAllDetails()+"\n";
+            }
+        }
+        return songList;
     }
 }
