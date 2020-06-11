@@ -56,6 +56,7 @@ public class Song {
 	// DELETE SONG METHOD CHANGES NAME TO 'Empty song' WHERE IT WILL NO LONGER BE RETURNED IN LISTS
 	public void resetSong() {
 		setName("Empty song");
+		setDuration(0);
 	}
 
 	// CHECK SOMETHING IDK EXACTLY
