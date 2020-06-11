@@ -3,14 +3,14 @@ import java.util.*;
 import java.io.*;
 /*
 Authors: Xavier Williams (C3329774), Riley Lane (C3339143)
-Last Edited: 08/05/2020
+Last Edited: 11/06/2020
 */
 
 public class SongCollection {
 	Scanner console = new Scanner(System.in);
-	int albumCount=0,exit=0;
-	final int MAX_ALBUMS = 4;
-	Album albums[] = new Album[MAX_ALBUMS];
+	private int albumCount=0,exit=0;
+	private final int MAX_ALBUMS = 4;
+	private Album albums[] = new Album[MAX_ALBUMS];
 
 	// MAIN METHOD
 	public static void main(String[] args) {
@@ -152,13 +152,12 @@ public class SongCollection {
 	/// <param name="genreID"> Identifier of the genre to search for </param>
 	/// <returns></returns>
 	void genreSearch(int genreID){
-		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()+albums[3].getSongCount()==0){
-			System.out.println("No songs available to search.\n");
-		} else
+		if (!totalSongCountZero())
 		{
 			String searchResult = "";
 			for (int i=0;i<albums.length;i++){
-				if (albums[i].getAlbumName()!="Empty Slot"){
+				if (albums[i].getAlbumName()!="Empty Slot" && albums[i].getSongCount() != 0)
+				{
 					searchResult += albums[i].listSongsGenre(genreID);
 				}
 			}
@@ -172,13 +171,12 @@ public class SongCollection {
 	/// <param name="durationTime"> Upper limit of song duration </param>
 	/// <returns></returns>
 	void durationSearch(int durationTime){
-		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()+albums[3].getSongCount()==0){
-			System.out.println("No songs available to search.\n");
-		} else
+
+		if (!totalSongCountZero())
 		{
 			String searchResult = "";
 			for (int i=0;i<albums.length;i++){
-				if (albums[i].getAlbumName() != "Empty Slot"){
+				if (albums[i].getAlbumName() != "Empty Slot" && albums[i].getSongCount() != 0){
 					searchResult += albums[i].listSongsDuration(durationTime);
 				}
 			}
@@ -187,12 +185,12 @@ public class SongCollection {
 	}
 
 	void nameSearch(String name){
-		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()+albums[3].getSongCount()==0){
-			System.out.println("No songs available to search.\n");
-		} else {
+		if (!totalSongCountZero())
+		{
 			String searchResult = "";
 			for (int i=0;i<albums.length;i++){
-				if (albums[i].getAlbumName() != "Empty Slot"){
+				if (albums[i].getAlbumName() != "Empty Slot" && albums[i].getSongCount() != 0)
+				{
 					searchResult += albums[i].listSongsName(name);
 				}
 			}
@@ -269,9 +267,6 @@ public class SongCollection {
 			{
 				if (albums[i].getAlbumName() == "Empty Slot")
 				{
-					System.out.println("overwriting slot " + i);
-					// System.out.println("Album name: ");
-					// String newAlbumName = console.nextLine();
 					// Check if album name already exists
 					if (!albumCheckName(newAlbumName)) {
 						albums[i].setAlbumName(newAlbumName);
@@ -321,23 +316,25 @@ public class SongCollection {
 			String input = console.nextLine();
 
 
-			if (Integer.parseInt(input) > albumCount)
+			if (Integer.parseInt(input) > 0 && Integer.parseInt(input) < MAX_ALBUMS)
 			{
-				if (Integer.parseInt(input) == 5)
+				if (albums[Integer.parseInt(input) - 1].getAlbumName() != "Empty Slot")
 				{
-					deleteAlbumMenu();
-				}
-				else if (Integer.parseInt(input) == 6)
-				{
-					//break;
+					System.out.println("displaying info of " + albums[Integer.parseInt(input) - 1].getAlbumName());
+					albumMenu(Integer.parseInt(input) - 1);
 				}
 				else{
 					rebootFunction();
 				}
 			}
+			else if(Integer.parseInt(input) == 5){
+				deleteAlbumMenu();
+			}
+			else if(Integer.parseInt(input) == 6){
+				//break
+			}
 			else{
-				System.out.println("displaying info of " + albums[Integer.parseInt(input) - 1].getAlbumName());
-				albumMenu(Integer.parseInt(input) - 1);
+				rebootFunction();
 			}
 
 		}
@@ -379,8 +376,8 @@ public class SongCollection {
 	/// <param name="selectedAlbum"> The album under which the song is created. </param>
 	/// <returns></returns>
 	void createNewSong(Album selectedAlbum) {
-		// Checks if under song limit (getSongCount()) < 4
-		if (selectedAlbum.getSongCount() <= 5) {
+		// Checks if under song limit (getSongCount()) < album MAX_SONGS
+		if (selectedAlbum.getSongCount() <= selectedAlbum.getMaxSongs()) {
 			String genreMenu = (
 					"___________________________________\n"
 							+ "___________Select Genre:___________\n"
@@ -458,7 +455,7 @@ public class SongCollection {
 
 			String input = console.nextLine();
 
-			tempSongName = selectedAlbum.songs[Integer.parseInt(input) - 1].getName();
+			tempSongName = selectedAlbum.getSongName(Integer.parseInt(input) - 1);
 
 			if(!tempSongName.matches("Empty song"))
 			{
@@ -483,20 +480,36 @@ public class SongCollection {
 	/// <returns></returns>
     void viewAllSong() {
 		// Check if songs have been made
-		if (albums[0].getSongCount()+albums[1].getSongCount()+albums[2].getSongCount()==0) {
-			System.out.println("No songs available to search.\n");
-		} else {
-			if (albums[0].getAlbumName() != "Empty Slot") {
-				System.out.println(albums[0].listSongs(false));
-			}
-			if (albums[1].getAlbumName() != "Empty Slot") {
-				System.out.println(albums[1].listSongs(false));
-			}
-			if (albums[2].getAlbumName() != "Empty Slot") {
-				System.out.println(albums[2].listSongs(false));
+		if(!totalSongCountZero())
+		{
+			for (int i = 0; i < albums.length; i++)
+			{
+				if (albums[i].getAlbumName() != "Empty Slot" && albums[i].getSongCount() != 0)
+				{
+					System.out.println("______ '" + albums[i].getAlbumName() + "' ______");
+					System.out.println(albums[i].listSongs(false));
+				}
 			}
 		}
     }
+
+    boolean totalSongCountZero(){
+
+		int totalSongCount = 0;
+		for (int i = 0; i < albums.length; i++)
+		{
+			totalSongCount += albums[i].getSongCount();
+		}
+		if(totalSongCount == 0)
+		{
+			System.out.println("No songs available to search.\n");
+			return(true);
+		}
+		else
+		{
+			return (false);
+		}
+	}
 
 	/// <summary>
 	/// Displays error message
@@ -529,10 +542,11 @@ public class SongCollection {
 	//delete song function ... called from "songDeleteMenu()"... resets Song and reduces songCount value by 1.
 	void deleteSong(Album selectedAlbum, int selectedSong)
 	{
-		selectedAlbum.songs[selectedSong].resetSong();
+		selectedAlbum.resetSong(selectedSong);
 		if (selectedAlbum.getSongCount() > 0) {
 			selectedAlbum.setSongCount(selectedAlbum.getSongCount() - 1);
 		}
+
 	}
 
 	/// <summary>
@@ -621,7 +635,8 @@ public class SongCollection {
 			if(currentToken.equals("Album")){
 				currentAlbumIndex = albumCreate(tokenValue);
 				if(currentAlbumIndex==-1){
-					System.out.println("error blah");
+					System.out.println("error");
+					break;
 				}
 				contextToken="Album";
 			} else if (currentToken.equals("Songs")){

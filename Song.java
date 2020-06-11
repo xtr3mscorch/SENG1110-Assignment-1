@@ -1,7 +1,7 @@
 /*
 Stores variables for individual song objects
 Authors: Xavier Williams (C3329774), Riley Lane (C3339143)
-Last Edited: 08/05/2020
+Last Edited: 11/06/2020
 */
 
 public class Song {
@@ -59,7 +59,7 @@ public class Song {
 		setDuration(0);
 	}
 
-	// CHECK SOMETHING IDK EXACTLY
+	// CHECK IF SONG ALREADY EXISTS
 	public boolean songMatches(String newSongName, String newArtist, int newDuration) {
 		if (newSongName.equals(name) && newArtist.equals(artist) && newDuration == duration) {
 			return true;
